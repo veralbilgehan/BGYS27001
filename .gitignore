@@ -1,0 +1,19 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Hermes agent internals
+.hermes/
+
+# Geçici / editor artefaktleri
+nul
+unu.txt
+index.atomic-segment-*
+protokol_preview.html
+IDEA.md
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
