@@ -137,6 +137,34 @@
   </div>
 </div>
 
+<!-- DÜZENLE MODAL -->
+<div class='editor' id='editor'>
+  <div class='ebox'>
+    <div class='ehead'>
+      <h3 id='etitle'>Rol Düzenle</h3>
+      <button class='close' onclick='editorKapat()'>Kapat ✕</button>
+    </div>
+    <div class='ebody'>
+      <label>KOD</label>
+      <input id='eKod' type='text' disabled>
+      <label>Rol Adı</label>
+      <textarea id='eAd' rows='2'></textarea>
+      <label>Kapsam</label>
+      <input id='eKapsam' type='text'>
+      <label>Sorumlu</label>
+      <input id='eSorumlu' type='text'>
+      <label>Yetkiler</label>
+      <textarea id='eYetki' rows='2'></textarea>
+      <label>Revizyon</label>
+      <input id='eRev' type='text'>
+    </div>
+    <div class='efoot'>
+      <button class='btn green' onclick='kaydet()'>&#128427; Kaydet</button>
+      <button class='btn orange' onclick='editorKapat()'>&#10005; Vazgeç</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const ROL = [
   {kod:'RL-01', ad:'BGYS Yöneticisi (CISO)',        kapsam:'Yönetim',  sorumlu:'Üst Yönetim', yetki:'Tüm modüller • Onay • Atama', rev:'v1.0'},
@@ -173,7 +201,7 @@ function renderRol(list){
       <td><span class='status'>Aktif</span></td>
       <td><div class='act'>
         <button class='view' onclick='detay("${r.ad}")'>&#128065; Detay</button>
-        <button class='edit' onclick='alert("Düzenle: ${r.kod}")'>&#9998; Düzenle</button>
+        <button class='edit' onclick='duzenle("${r.kod}")'>&#9998; Düzenle</button>
         <button class='del' onclick='sil("${r.kod}")'>&#128465; Sil</button>
       </div></td>`;
     tb.appendChild(tr);
@@ -194,8 +222,44 @@ function detay(ad){document.getElementById('vtitle').textContent=ad+' — Yetki 
   document.getElementById('viewer').style.display='block';}
 function viewerKapat(){document.getElementById('viewer').style.display='none';document.getElementById('vframe').src='about:blank';}
 function sil(kod){if(confirm(kod+' silinsin mi? (demo)'))alert(kod+' işaretlendi.');}
-function csvKaydet(){let csv='ROL KODU;ROL ADI;KAPSAM;SORUMLU;YETKILER;REV;DURUM\n';
-  ROL.forEach(r=>{csv+=`${r.kod};${r.ad};${r.kapsam};${r.sorumlu};${r.yetki};${r.rev};Aktif\n`;});
+// === DÜZENLE MODAL ===
+function duzenle(kod){
+  const r = ROL.find(x=>x.kod===kod); if(!r) return;
+  document.getElementById('etitle').textContent = 'Rol Düzenle: '+kod;
+  document.getElementById('eKod').value = r.kod;
+  document.getElementById('eAd').value = r.ad;
+  document.getElementById('eKapsam').value = r.kapsam;
+  document.getElementById('eSorumlu').value = r.sorumlu;
+  document.getElementById('eYetki').value = r.yetki;
+  document.getElementById('eRev').value = r.rev;
+  document.getElementById('editor').classList.add('show');
+}
+function editorKapat(){document.getElementById('editor').classList.remove('show');}
+function kaydet(){
+  const kod = document.getElementById('eKod').value;
+  const r = ROL.find(x=>x.kod===kod); if(!r){editorKapat();return;}
+  r.ad = document.getElementById('eAd').value;
+  r.kapsam = document.getElementById('eKapsam').value;
+  r.sorumlu = document.getElementById('eSorumlu').value;
+  r.yetki = document.getElementById('eYetki').value;
+  r.rev = document.getElementById('eRev').value;
+  try { localStorage.setItem('bgys_rol_'+kod, JSON.stringify({ad:r.ad,kapsam:r.kapsam,sorumlu:r.sorumlu,yetki:r.yetki,rev:r.rev})); } catch(e){}
+  renderRol(ROL);
+  editorKapat();
+  alert(kod+' güncellendi (tarayıcıda kaydedildi).');
+}
+(function(){
+  ROL.forEach(r=>{
+    try{
+      const s = localStorage.getItem('bgys_rol_'+r.kod);
+      if(s){ const d=JSON.parse(s); r.ad=d.ad; r.kapsam=d.kapsam; r.sorumlu=d.sorumlu; r.yetki=d.yetki; r.rev=d.rev; }
+    }catch(e){}
+  });
+})();
+function csvKaydet(){let csv='ROL KODU;ROL ADI;KAPSAM;SORUMLU;YETKILER;REV;DURUM\
+';
+  ROL.forEach(r=>{csv+=`${r.kod};${r.ad};${r.kapsam};${r.sorumlu};${r.yetki};${r.rev};Aktif
+`;});
   const b=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='rol_yetki_matrisi.csv';a.click();}
 renderRol(ROL);

@@ -101,7 +101,7 @@
     <div class='content'>
       <div class='card'>
         <div class='chead'>
-          <h3>Tüm Prosedürler</h3>
+          <h3>Tüm Prosedürler (<span id='say'>0</span>)</h3>
           <input id='search' class='search' placeholder='Prosedür ara...' oninput='filtre()'>
           <button class='btn blue' onclick="alert('Yeni prosedur: uret_prosedurler.py ile 20 prosedure eklenir.')">+ Yeni Prosedür</button>
           <button class='btn green' onclick='csvKaydet()'>&#128190; CSV Kaydet</button>
@@ -126,6 +126,32 @@
       <button class='close' onclick='viewerKapat()'>Kapat ✕</button>
     </div>
     <iframe id='vframe' src='about:blank'></iframe>
+  </div>
+</div>
+
+<!-- DÜZENLE MODAL -->
+<div class='editor' id='editor'>
+  <div class='ebox'>
+    <div class='ehead'>
+      <h3 id='etitle'>Kayıt Düzenle</h3>
+      <button class='close' onclick='editorKapat()'>Kapat ✕</button>
+    </div>
+    <div class='ebody'>
+      <label>KOD</label>
+      <input id='eKod' type='text' disabled>
+      <label>Belge Adı</label>
+      <textarea id='eAd' rows='2'></textarea>
+      <label>Kapsam</label>
+      <input id='eKapsam' type='text'>
+      <label>Revizyon</label>
+      <input id='eRev' type='text'>
+      <label>Durum</label>
+      <input id='eDurum' type='text'>
+    </div>
+    <div class='efoot'>
+      <button class='btn green' onclick='kaydet()'>&#128427; Kaydet</button>
+      <button class='btn orange' onclick='editorKapat()'>&#10005; Vazgeç</button>
+    </div>
   </div>
 </div>
 
@@ -161,7 +187,7 @@ function render(list){
       <td>${p.rev}</td><td><span class='status'>Hazır</span></td><td>${guncel()}</td>
       <td><div class='act'>
         <button class='view' onclick='goruntule("${p.html}","${p.ad}")'>&#128065; Görüntüle</button>
-        <button class='edit' onclick='alert("Düzenle: ${p.kod}")'>&#9998; Düzenle</button>
+        <button class='edit' onclick='duzenle("${p.kod}")'>&#9998; Düzenle</button>
         <button class='del' onclick='sil("${p.kod}")'>&#128465; Sil</button>
       </div></td>`;
     tb.appendChild(tr);
@@ -174,8 +200,41 @@ function goruntule(html,ad){document.getElementById('vtitle').textContent=ad+' �
   document.getElementById('vframe').src=html;document.getElementById('viewer').style.display='block';}
 function viewerKapat(){document.getElementById('viewer').style.display='none';document.getElementById('vframe').src='about:blank';}
 function sil(kod){if(confirm(kod+' silinsin mi? (demo)'))alert(kod+' işaretlendi.');}
-function csvKaydet(){let csv='KOD;BELGE ADİ;KAPSAM;REVİZYON;DURUM;GÜNCELLEME\n';
-  PRE.forEach(p=>{csv+=`${p.kod};${p.ad};${p.kapsam};${p.rev};Hazır;${guncel()}\n`;});
+// === DÜZENLE MODAL ===
+function duzenle(kod){
+  const p = PRE.find(x=>x.kod===kod); if(!p) return;
+  document.getElementById('etitle').textContent = 'Düzenle: '+kod;
+  document.getElementById('eKod').value = p.kod;
+  document.getElementById('eAd').value = p.ad;
+  document.getElementById('eKapsam').value = p.kapsam;
+  document.getElementById('eRev').value = p.rev;
+  document.getElementById('eDurum').value = 'Hazır';
+  document.getElementById('editor').classList.add('show');
+}
+function editorKapat(){document.getElementById('editor').classList.remove('show');}
+function kaydet(){
+  const kod = document.getElementById('eKod').value;
+  const p = PRE.find(x=>x.kod===kod); if(!p){editorKapat();return;}
+  p.ad = document.getElementById('eAd').value;
+  p.kapsam = document.getElementById('eKapsam').value;
+  p.rev = document.getElementById('eRev').value;
+  try { localStorage.setItem('bgys_prosedur_'+kod, JSON.stringify({ad:p.ad,kapsam:p.kapsam,rev:p.rev})); } catch(e){}
+  render(PRE);
+  editorKapat();
+  alert(kod+' güncellendi (tarayıcıda kaydedildi).');
+}
+(function(){
+  PRE.forEach(p=>{
+    try{
+      const s = localStorage.getItem('bgys_prosedur_'+p.kod);
+      if(s){ const d=JSON.parse(s); p.ad=d.ad; p.kapsam=d.kapsam; p.rev=d.rev; }
+    }catch(e){}
+  });
+})();
+function csvKaydet(){let csv='KOD;BELGE ADİ;KAPSAM;REVİZYON;DURUM;GÜNCELLEME\
+';
+  PRE.forEach(p=>{csv+=`${p.kod};${p.ad};${p.kapsam};${p.rev};Hazır;${guncel()}
+`;});
   const b=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='prosedur_listesi.csv';a.click();}
 render(PRE);

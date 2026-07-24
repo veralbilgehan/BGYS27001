@@ -58,9 +58,19 @@
   .viewer .vhead{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);}
   .viewer .vhead h3{margin:0;flex:1;font-size:15px;}
   .viewer iframe{flex:1;border:none;width:100%;}
-  .viewer .close{background:#dc2626;color:#fff;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;}
-</style>
-</head>
+  .foot{font-size:12px;color:var(--muted);padding:16px 22px;border-top:1px solid var(--line);background:#fafbfd}
+  /* editor modal */
+  .editor{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:120;align-items:center;justify-content:center}
+  .editor.show{display:flex}
+  .ebox{background:#fff;width:min(560px,92vw);max-height:90vh;overflow:auto;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .ehead{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(15,118,110,.08),rgba(59,130,246,.08))}
+  .ehead h3{margin:0;font-size:17px;color:var(--accent)}
+  .ebody{padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+  .ebody label{font-weight:600;font-size:13px;margin-top:8px}
+  .ebody textarea{min-height:64px;resize:vertical}
+  .efoot{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--line);background:#fafbfd}
+  </style>
+  </head>
 <body>
 <div class='app'>
   <!-- SOL MENÜ -->
@@ -108,7 +118,7 @@
     <div class='content'>
       <div class='card'>
         <div class='chead'>
-          <h3>Tüm Politikalar</h3>
+          <h3>Tüm Politikalar (<span id='say'>0</span>)</h3>
           <input id='search' class='search' placeholder='Politika ara...' oninput='filtre()'>
           <button class='btn blue' onclick="alert('Yeni politika: uret_protokoller.py ile 9 politikaya eklenir.')">+ Yeni Politika</button>
           <button class='btn green' onclick='csvKaydet()'>&#128190; CSV Kaydet</button>
@@ -134,6 +144,32 @@
       <button class='close' onclick='viewerKapat()'>Kapat ✕</button>
     </div>
     <iframe id='vframe' src='about:blank'></iframe>
+  </div>
+</div>
+
+<!-- DÜZENLE MODAL -->
+<div class='editor' id='editor'>
+  <div class='ebox'>
+    <div class='ehead'>
+      <h3 id='etitle'>Kayıt Düzenle</h3>
+      <button class='close' onclick='editorKapat()'>Kapat ✕</button>
+    </div>
+    <div class='ebody'>
+      <label>KOD</label>
+      <input id='eKod' type='text' disabled>
+      <label>Belge Adı</label>
+      <textarea id='eAd' rows='2'></textarea>
+      <label>Kapsam</label>
+      <input id='eKapsam' type='text'>
+      <label>Revizyon</label>
+      <input id='eRev' type='text'>
+      <label>Durum</label>
+      <input id='eDurum' type='text'>
+    </div>
+    <div class='efoot'>
+      <button class='btn green' onclick='kaydet()'>&#128427; Kaydet</button>
+      <button class='btn orange' onclick='editorKapat()'>&#10005; Vazgeç</button>
+    </div>
   </div>
 </div>
 
@@ -169,7 +205,7 @@ function render(list){
       <td>${guncel(p.kod)}</td>
       <td><div class='act'>
         <button class='view' onclick='goruntule("${p.html}","${p.ad}")'>&#128065; Görüntüle</button>
-        <button class='edit' onclick='alert("Düzenle: ${p.kod}")'>&#9998; Düzenle</button>
+        <button class='edit' onclick='duzenle("${p.kod}")'>&#9998; Düzenle</button>
         <button class='del' onclick='sil("${p.kod}")'>&#128465; Sil</button>
       </div></td>`;
     tb.appendChild(tr);
@@ -187,9 +223,43 @@ function goruntule(html,ad){
 }
 function viewerKapat(){document.getElementById('viewer').style.display='none';document.getElementById('vframe').src='about:blank';}
 function sil(kod){if(confirm(kod+' silinsin mi? (demo — gerçek silme yapılmaz)'))alert(kod+' işaretlendi.');}
+// === DÜZENLE MODAL ===
+function duzenle(kod){
+  const p = POL.find(x=>x.kod===kod); if(!p) return;
+  document.getElementById('etitle').textContent = 'Düzenle: '+kod;
+  document.getElementById('eKod').value = p.kod;
+  document.getElementById('eAd').value = p.ad;
+  document.getElementById('eKapsam').value = p.kapsam;
+  document.getElementById('eRev').value = p.rev;
+  document.getElementById('eDurum').value = 'Hazır';
+  document.getElementById('editor').classList.add('show');
+}
+function editorKapat(){document.getElementById('editor').classList.remove('show');}
+function kaydet(){
+  const kod = document.getElementById('eKod').value;
+  const p = POL.find(x=>x.kod===kod); if(!p){editorKapat();return;}
+  p.ad = document.getElementById('eAd').value;
+  p.kapsam = document.getElementById('eKapsam').value;
+  p.rev = document.getElementById('eRev').value;
+  // localStorage'a kaydet (yeniden acinca kalsin)
+  try { localStorage.setItem('bgys_politika_'+kod, JSON.stringify({ad:p.ad,kapsam:p.kapsam,rev:p.rev})); } catch(e){}
+  render(POL);
+  editorKapat();
+  alert(kod+' güncellendi (tarayıcıda kaydedildi).');
+}
+// sayfa acilisinda localStorage'dan yukle
+(function(){
+  POL.forEach(p=>{
+    try{
+      const s = localStorage.getItem('bgys_politika_'+p.kod);
+      if(s){ const d=JSON.parse(s); p.ad=d.ad; p.kapsam=d.kapsam; p.rev=d.rev; }
+    }catch(e){}
+  });
+})();
 function csvKaydet(){
   let csv='KOD;BELGE ADİ;KAPSAM;REVİZYON;DURUM;GÜNCELLEME\n';
-  POL.forEach(p=>{csv+=`${p.kod};${p.ad};${p.kapsam};${p.rev};Hazır;${guncel(p.kod)}\n`;});
+  POL.forEach(p=>{csv+=`${p.kod};${p.ad};${p.kapsam};${p.rev};Hazır;${guncel(p.kod)}
+`;});
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='politika_listesi.csv';a.click();
 }
