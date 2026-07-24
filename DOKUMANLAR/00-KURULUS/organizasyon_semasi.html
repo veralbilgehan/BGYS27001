@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang='tr'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Şirket Organizasyon Şeması ve ID Kodları</title>
+<style>
+  body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;color:#1f2937;max-width:960px;margin:24px auto;padding:0 18px;line-height:1.55}
+  h1{color:#7C9E0E;border-bottom:3px solid #7C9E0E;padding-bottom:8px;font-size:22px}
+  h2{color:#0f766e;margin-top:24px;font-size:17px}
+  h3{color:#374151;margin:16px 0 6px;font-size:14px}
+  code{background:#f0f4e0;padding:2px 6px;border-radius:4px;font-weight:700;color:#0f766e}
+  pre{background:#0f1e3d;color:#e2e8f0;padding:16px;border-radius:10px;font-size:13px;line-height:1.4;overflow-x:auto}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px}
+  table th,table td{border:1px solid #d1d5db;padding:8px 10px;text-align:left;vertical-align:top}
+  table th{background:#f0f4e0;color:#374151}
+  .unit{border-left:4px solid #7C9E0E;padding:8px 12px;margin:8px 0;background:#fafbfd}
+  .tree{font-family:'Consolas',monospace;white-space:pre;font-size:13px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:14px}
+  ul{margin:6px 0;padding-left:20px}
+  li{margin:4px 0;font-size:13px}
+</style>
+</head>
+<body>
+<h1>Şirket Organizasyon Şeması ve ID Kodları</h1>
+
+<h2>Organizasyon Şeması</h2>
+<div class='tree'>                             [ GM001 - Genel Müdür ]
+                                        │
+        ┌───────────────────────────────┼───────────────────────────────┐
+        ▼                               ▼                               ▼
+[ PB100 - Pazarlama, Satış ]  [ DO200 - Destek ve Operasyon ]   [ TB300 - Teknik Birim ]
+  ve Destek Birimi                       │                               │
+        │                               ├─ IK210 - İnsan Kaynakları     ├─ NE310 - Network Ekibi
+        ├─ PE110 - Pazarlama Ekibi      ├─ FE220 - Finans Ekibi         ├─ SE320 - Sistem Ekibi
+        ├─ SE120 - Satış Ekibi          └─ ME230 - Muhasebe Ekibi       ├─ YE330 - Yazılım Ekibi
+        └─ MDE130 - Müşteri Destek Ekibi                                └─ GE340 - Güvenlik Ekibi</div>
+
+<h2>Detaylı ID Kodları ve Görev Tanımları</h2>
+
+<h3>Üst Yönetim</h3>
+<div class='unit'><code>GM001</code> — Genel Müdür / Yönetici<br>
+Şirket vizyonunu ve stratejik hedeflerini belirler; tüm alt birimlerin koordinasyonunu yönetir.</div>
+
+<h3>1. Pazarlama, Satış ve Müşteri Destek Birimi (PB100)</h3>
+<ul>
+  <li><code>PE110</code> — Pazarlama Ekibi: Pazar ve rakip analizleri yapar, marka bilinirliğini artırır ve satış ekibine müşteri akışı sağlar.</li>
+  <li><code>SE120</code> — Satış Ekibi: Potansiyel müşterilerle iletişim kurar, teklifler hazırlar, pazarlıkları yürütür ve ciro hedeflerini gerçekleştirir.</li>
+  <li><code>MDE130</code> — Müşteri Destek Ekibi: Satış sonrası müşteri taleplerini karşılar, sorunları çözer ve teknik konuları TB300 birimine talep olarak iletir.</li>
+</ul>
+
+<h3>2. Destek ve Operasyon Birimi (DO200)</h3>
+<ul>
+  <li><code>IK210</code> — İnsan Kaynakları Ekibi: İşe alım, oryantasyon, performans yönetimi, eğitim ve şirket içi çalışan ilişkilerini yürütür.</li>
+  <li><code>FE220</code> — Finans Ekibi: Nakit akışı (Cash Flow), bütçe planlaması, mali risk analizleri ve banka ilişkilerini yönetir.</li>
+  <li><code>ME230</code> — Muhasebe Ekibi: Fatura kesimi, maaş bordroları, resmi defterler, vergi beyannameleri ve yasal yükümlülükleri takip eder.</li>
+</ul>
+
+<h3>3. Teknik Birim / Teknik Destek Birimi (TB300)</h3>
+<ul>
+  <li><code>NE310</code> — Network Ekibi: Şirket içi ve dışı ağ (LAN/WAN/VPN) altyapısını, router ve switch cihazlarını kesintisiz çalışacak şekilde yönetir.</li>
+  <li><code>SE320</code> — Sistem Ekibi: Sunucuları (Windows/Linux), sanallaştırma altyapısını, veri tabanlarını ve sistem yedeklerini (backup) yönetir.</li>
+  <li><code>YE330</code> — Yazılım Ekibi: Şirketin ürünlerini ve iç yazılımlarını geliştirir, bakımlarını yapar ve hataları (bug) çözer.</li>
+  <li><code>GE340</code> — Güvenlik Ekibi: Siber saldırılara karşı önlem alır (Firewall, SIEM), sızma testleri yapar ve KVKK / veri güvenliğini sağlar.</li>
+</ul>
+
+<p style='margin-top:24px;color:#6b7280;font-size:12px'>Kaynak: Kullanıcı tarafından sağlanan organizasyon şeması (düzeltilmiş imla).</p>
+</body>
+</html>
