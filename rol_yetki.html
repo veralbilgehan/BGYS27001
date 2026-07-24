@@ -54,7 +54,16 @@
   .viewer .vhead h3{margin:0;flex:1;font-size:15px;}
   .viewer iframe{flex:1;border:none;width:100%;}
   .viewer .close{background:#dc2626;color:#fff;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;}
-</style>
+    /* gövde editör */
+    .toolbar{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0 4px}
+    .toolbar button{background:#fff;border:1px solid #d1d5db;border-radius:6px;padding:5px 9px;cursor:pointer;font-size:13px}
+    .toolbar button:hover{background:#f1f5f9}
+    .govde{min-height:240px;max-height:50vh;overflow:auto;border:1px solid #d1d5db;border-radius:8px;padding:12px;font-size:14px;line-height:1.6;background:#fff}
+    .govde:focus{outline:2px solid rgba(15,118,110,.25);border-color:var(--accent)}
+    .govde h2{font-size:16px;color:var(--accent);margin:10px 0 6px}
+    .govde p{margin:6px 0}
+    .govdesrc{width:100%;font-family:Consolas,monospace;font-size:12px;border:1px solid #d1d5db;border-radius:8px;padding:10px}
+  </style>
 </head>
 <body>
 <div class='app'>
@@ -158,6 +167,19 @@
       <textarea id='eYetki' rows='2'></textarea>
       <label>Revizyon</label>
       <input id='eRev' type='text'>
+      <label>Rol Açıklaması / Görev Detayı (Kelime / cümle değiştir, yeni bölüm ekle)</label>
+      <div class='toolbar'>
+        <button type='button' onclick='document.execCommand("bold")'><b>B</b></button>
+        <button type='button' onclick='document.execCommand("italic")'><i>I</i></button>
+        <button type='button' onclick='document.execCommand("underline")'><u>U</u></button>
+        <button type='button' onclick='document.execCommand("insertUnorderedList")'>&#8226; Liste</button>
+        <button type='button' onclick='document.execCommand("insertOrderedList")'>1. Liste</button>
+        <button type='button' onclick='document.execCommand("formatBlock",false,"H2")'>Başlık</button>
+        <button type='button' onclick='document.execCommand("formatBlock",false,"P")'>Paragraf</button>
+        <button type='button' id='eSrcBtn' onclick='govdeKaynakToggle()'>&#128220; HTML Kaynağı</button>
+      </div>
+      <div id='eGovde' class='govde' contenteditable='true'></div>
+      <textarea id='eGovdeSrc' class='govdesrc' style='display:none' rows='14'></textarea>
     </div>
     <div class='efoot'>
       <button class='btn green' onclick='kaydet()'>&#128427; Kaydet</button>
@@ -218,11 +240,36 @@ function renderMatris(){
 }
 function filtre(){const q=document.getElementById('search').value.toLowerCase();
   renderRol(ROL.filter(r=>r.ad.toLowerCase().includes(q)||r.kod.toLowerCase().includes(q)));}
-function detay(ad){document.getElementById('vtitle').textContent=ad+' — Yetki Detayı';
-  document.getElementById('vframe').src='about:blank';
-  document.getElementById('viewer').style.display='block';}
+function detay(ad,kod){
+  let govde=null;
+  if(kod){ try{ const s=localStorage.getItem('bgys_govde_'+kod); if(s) govde=JSON.parse(s).govde; }catch(e){} }
+  const v=document.getElementById('viewer'); const fr=document.getElementById('vframe');
+  if(govde){
+    document.getElementById('vtitle').textContent=ad+' — Rol Detayı (düzenlenmiş)';
+    const doc=fr.contentDocument || fr.contentWindow.document;
+    doc.open(); doc.write('<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Segoe UI,Arial;padding:20px;color:#1f2937;line-height:1.6}</style></head><body>'+govde+'</body></html>'); doc.close();
+    v.style.display='block';
+  } else {
+    document.getElementById('vtitle').textContent=ad+' — Yetki Detayı';
+    fr.src='about:blank';
+    v.style.display='block';
+  }
+}
 function viewerKapat(){document.getElementById('viewer').style.display='none';document.getElementById('vframe').src='about:blank';}
 function sil(kod){if(confirm(kod+' silinsin mi? (demo)'))alert(kod+' işaretlendi.');}
+// === GÖVDE DÜZENLEYİCİ ===
+function govdeKaynakToggle(){
+  const vis=document.getElementById('eGovde'), src=document.getElementById('eGovdeSrc');
+  if(src.style.display==='none'){ src.value=vis.innerHTML; src.style.display='block'; vis.style.display='none'; }
+  else { vis.innerHTML=src.value; src.style.display='none'; vis.style.display='block'; }
+}
+async function govdeYukle(kod,html){
+  try{ const s=localStorage.getItem('bgys_govde_'+kod); if(s){ document.getElementById('eGovde').innerHTML=JSON.parse(s).govde; return; } }catch(e){}
+  const r = ROL.find(x=>x.kod===kod);
+  if(r){
+    document.getElementById('eGovde').innerHTML = '<h2>'+r.ad+'</h2><p><b>Kapsam:</b> '+r.kapsam+'</p><p><b>Sorumlu:</b> '+r.sorumlu+'</p><p><b>Yetkiler:</b> '+r.yetki+'</p><p>Bu alana rolün detaylı görev tanımını yazabilirsiniz.</p>';
+  }
+}
 // === DÜZENLE MODAL ===
 function duzenle(kod){
   const r = ROL.find(x=>x.kod===kod); if(!r) return;
@@ -233,6 +280,9 @@ function duzenle(kod){
   document.getElementById('eSorumlu').value = r.sorumlu;
   document.getElementById('eYetki').value = r.yetki;
   document.getElementById('eRev').value = r.rev;
+  document.getElementById('eGovdeSrc').style.display='none';
+  document.getElementById('eGovde').style.display='block';
+  govdeYukle(kod, null);
   document.getElementById('editor').classList.add('show');
 }
 function editorKapat(){document.getElementById('editor').classList.remove('show');}
@@ -244,10 +294,14 @@ function kaydet(){
   r.sorumlu = document.getElementById('eSorumlu').value;
   r.yetki = document.getElementById('eYetki').value;
   r.rev = document.getElementById('eRev').value;
-  try { localStorage.setItem('bgys_rol_'+kod, JSON.stringify({ad:r.ad,kapsam:r.kapsam,sorumlu:r.sorumlu,yetki:r.yetki,rev:r.rev})); } catch(e){}
+  const govde = document.getElementById('eGovde').innerHTML;
+  try {
+    localStorage.setItem('bgys_rol_'+kod, JSON.stringify({ad:r.ad,kapsam:r.kapsam,sorumlu:r.sorumlu,yetki:r.yetki,rev:r.rev}));
+    localStorage.setItem('bgys_govde_'+kod, JSON.stringify({govde:govde}));
+  } catch(e){}
   renderRol(ROL);
   editorKapat();
-  alert(kod+' güncellendi (tarayıcıda kaydedildi).');
+  alert(kod+' güncellendi (gövde dahil tarayıcıda kaydedildi).');
 }
 (function(){
   ROL.forEach(r=>{
