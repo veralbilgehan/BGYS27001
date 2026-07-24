@@ -3,264 +3,110 @@
 <head>
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <title>BGYS27001 Dosya Dizini</title>
+  <title>BGYS27001 · 5 Ajan Paneli</title>
   <style>
-    :root {
-      --bg1:#f2f6ff;
-      --bg2:#eefcf7;
-      --card:#ffffff;
-      --ink:#1f2937;
-      --muted:#6b7280;
-      --accent:#0f766e;
-      --line:#e5e7eb;
+    :root{
+      --bg1:#f2f6ff; --bg2:#eefcf7; --card:#ffffff; --ink:#1f2937;
+      --muted:#6b7280; --accent:#7C9E0E; --accent2:#0f766e; --line:#e5e7eb;
     }
-    * { box-sizing:border-box; }
-    body {
-      margin:0;
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
-      color:var(--ink);
-      background: radial-gradient(1200px 500px at 15% -10%, #dbeafe 0%, transparent 60%),
-                  radial-gradient(900px 400px at 90% 0%, #dcfce7 0%, transparent 55%),
-                  linear-gradient(160deg, var(--bg1), var(--bg2));
+    *{box-sizing:border-box;}
+    body{
+      margin:0; font-family:"Segoe UI",Tahoma,Arial,sans-serif; color:var(--ink);
+      background:radial-gradient(1200px 500px at 15% -10%,#dbeafe 0%,transparent 60%),
+                  radial-gradient(900px 400px at 90% 0%,#dcfce7 0%,transparent 55%),
+                  linear-gradient(160deg,var(--bg1),var(--bg2));
       min-height:100vh;
     }
-    .wrap {
-      max-width:1100px;
-      margin:42px auto;
-      padding:0 16px;
+    .wrap{max-width:1100px;margin:42px auto;padding:0 16px;}
+    .head{padding:26px 24px;border-radius:16px 16px 0 0;
+      background:linear-gradient(90deg,rgba(124,158,14,.12),rgba(15,118,110,.12));
+      border:1px solid var(--line);border-bottom:none;}
+    h1{margin:0;font-size:28px;color:var(--accent);}
+    .meta{margin-top:8px;color:var(--muted);font-size:14px;}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;
+      padding:24px;border:1px solid var(--line);border-top:none;border-radius:0 0 16px 16px;
+      background:var(--card);box-shadow:0 12px 40px rgba(15,23,42,.08);}
+    .aj{
+      border:1px solid var(--line);border-radius:14px;padding:18px;
+      background:#fbfdff;transition:.15s;position:relative;overflow:hidden;
     }
-    .card {
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:16px;
-      box-shadow:0 12px 40px rgba(15,23,42,.08);
-      overflow:hidden;
+    .aj::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent);}
+    .aj.cross::before{background:var(--accent2);}
+    .aj:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,23,42,.1);}
+    .badge{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--accent);
+      padding:3px 9px;border-radius:999px;margin-bottom:8px;}
+    .aj.cross .badge{background:var(--accent2);}
+    .aj h2{margin:0 0 6px;font-size:18px;}
+    .aj p{margin:0 0 12px;color:var(--muted);font-size:13px;min-height:38px;}
+    .cnt{font-size:13px;color:var(--ink);margin-bottom:12px;}
+    .cnt b{color:var(--accent);}
+    .aj a.btn{
+      display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;
+      padding:9px 14px;border-radius:10px;font-size:14px;
     }
-    .head {
-      padding:22px 24px;
-      border-bottom:1px solid var(--line);
-      background:linear-gradient(90deg, rgba(15,118,110,.08), rgba(59,130,246,.08));
-    }
-    h1 { margin:0; font-size:28px; }
-    .meta { margin-top:8px; color:var(--muted); font-size:14px; }
-    .tools {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      padding:14px 16px;
-      border-bottom:1px solid var(--line);
-      background:#fbfdff;
-    }
-    .search {
-      flex:1;
-      min-width:240px;
-      padding:10px 12px;
-      border:1px solid #d1d5db;
-      border-radius:10px;
-      font-size:14px;
-    }
-    .chips {
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .chip {
-      border:1px solid #d1d5db;
-      background:#fff;
-      color:#374151;
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:12px;
-      cursor:pointer;
-    }
-    .chip.active {
-      background:#0f766e;
-      color:#fff;
-      border-color:#0f766e;
-    }
-    .tableWrap { overflow:auto; }
-    table { width:100%; border-collapse:collapse; font-size:14px; }
-    th, td { padding:12px 14px; border-bottom:1px solid var(--line); text-align:left; }
-    th { background:#f8fafc; font-weight:600; position:sticky; top:0; }
-    tr:hover td { background:#fafafa; }
-    a { color:#0b57d0; text-decoration:none; }
-    a:hover { text-decoration:underline; }
-    .num { white-space:nowrap; text-align:right; }
-    .foot { padding:12px 16px; color:var(--muted); font-size:13px; }
-    .topbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    a.link {
-      color:#3b82f6; text-decoration:none; font-size:14px; font-weight:600;
-      border:1px solid #d1d5db; background:#fff; padding:8px 14px; border-radius:10px;
-    }
-    a.link:hover { background:#f1f5f9; text-decoration:none; }
+    .aj.cross a.btn{background:var(--accent2);}
+    .aj a.btn:hover{opacity:.9;}
+    .foot{padding:12px 16px;color:var(--muted);font-size:13px;text-align:center;}
   </style>
 </head>
 <body>
   <div class='wrap'>
-    <div class='card'>
-      <div class='head'>
-        <div>
-          <h1>BGYS27001 Yayın Dizini</h1>
-          <div class='meta'>Toplam dosya: 78 | Bucket: bgys27001-atomic-segment-466806-v8-20260511092521 | Güncellendi: 2026-05-11 09:29:45</div>
-        </div>
-        <div class='topbar'>
-          <a class='link' href='firma_bilgileri.html'>Ajan 1 · Firma Bilgileri &rarr;</a>
-          <a class='link' href='DOKUMANLAR/00-POLİTİKALAR/'>Ajan 2 · Politikalar (9)</a>
-          <a class='link' href='DOKUMANLAR/00-PROSEDÜRLER/'>Ajan 3 · Prosedürler (20)</a>
-          <a class='link' href='uret_prosedurler.html'>⚡ Prosedür Üretici (JS) &rarr;</a>
-          <a class='link' href='DOKUMANLAR/00-RISK-VE-SOA/'>Ajan 4 · Risk + SoA</a>
-        </div>
-      </div>
-      <div class='tools'>
-        <input id='searchBox' class='search' type='search' placeholder='Dosya adında ara...'>
-        <div id='extChips' class='chips'>
-          <button class='chip active' data-ext='all'>Tumu</button>
-        </div>
-      </div>
-      <div class='tableWrap'>
-        <table>
-          <thead>
-            <tr><th>Dosya</th><th class='num'>Boyut</th><th>Güncellenme</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/27001%20ek-a%20maddeleri%20(1)%20-%20Kopya.pdf' target='_blank' rel='noopener'>27001 ek-a maddeleri (1) - Kopya.pdf</a></td><td class='num'>376,99 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/27001%20ek-a%20maddeleri%20(1).pdf' target='_blank' rel='noopener'>27001 ek-a maddeleri (1).pdf</a></td><td class='num'>376,99 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/27001%20ek-a%20maddeleri%20-%20Kopya.pdf' target='_blank' rel='noopener'>27001 ek-a maddeleri - Kopya.pdf</a></td><td class='num'>376,99 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/27001%20ek-a%20maddeleri.pdf' target='_blank' rel='noopener'>27001 ek-a maddeleri.pdf</a></td><td class='num'>376,99 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/3462E1EB-9E09-5FE9-50A2-13F7ADDE2656%20-%20Kopya.pdf' target='_blank' rel='noopener'>3462E1EB-9E09-5FE9-50A2-13F7ADDE2656 - Kopya.pdf</a></td><td class='num'>268,34 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/3462E1EB-9E09-5FE9-50A2-13F7ADDE2656.pdf' target='_blank' rel='noopener'>3462E1EB-9E09-5FE9-50A2-13F7ADDE2656.pdf</a></td><td class='num'>268,34 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20054859%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 054859 - Kopya.png</a></td><td class='num'>237,96 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20054859.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 054859.png</a></td><td class='num'>237,96 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20054917%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 054917 - Kopya.png</a></td><td class='num'>125 B</td><td>2026-05-11T06:25:57+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20054917.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 054917.png</a></td><td class='num'>125 B</td><td>2026-05-11T06:25:57+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20054935%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 054935 - Kopya.png</a></td><td class='num'>378,63 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20054935.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 054935.png</a></td><td class='num'>378,63 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20054951%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 054951 - Kopya.png</a></td><td class='num'>260,81 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20054951.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 054951.png</a></td><td class='num'>260,81 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055004%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055004 - Kopya.png</a></td><td class='num'>155,40 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055004.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055004.png</a></td><td class='num'>155,40 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055022%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055022 - Kopya.png</a></td><td class='num'>200,93 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055022.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055022.png</a></td><td class='num'>200,93 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055047%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055047 - Kopya.png</a></td><td class='num'>111,26 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055047.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055047.png</a></td><td class='num'>111,26 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055337%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055337 - Kopya.png</a></td><td class='num'>170,75 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055337.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055337.png</a></td><td class='num'>170,75 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055355%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055355 - Kopya.png</a></td><td class='num'>118,88 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055355.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055355.png</a></td><td class='num'>118,88 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055411%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055411 - Kopya.png</a></td><td class='num'>153,88 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055411.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055411.png</a></td><td class='num'>153,88 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055425%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055425 - Kopya.png</a></td><td class='num'>156,48 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055425.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055425.png</a></td><td class='num'>156,48 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055440%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055440 - Kopya.png</a></td><td class='num'>148,97 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055440.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055440.png</a></td><td class='num'>148,97 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055456%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055456 - Kopya.png</a></td><td class='num'>301,89 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055456.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055456.png</a></td><td class='num'>301,89 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055518%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055518 - Kopya.png</a></td><td class='num'>117,44 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055518.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055518.png</a></td><td class='num'>117,44 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055532%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055532 - Kopya.png</a></td><td class='num'>193,28 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055532.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055532.png</a></td><td class='num'>193,28 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055554%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055554 - Kopya.png</a></td><td class='num'>126,75 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055554.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055554.png</a></td><td class='num'>126,75 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055613%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055613 - Kopya.png</a></td><td class='num'>171,32 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055613.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055613.png</a></td><td class='num'>171,32 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055631%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055631 - Kopya.png</a></td><td class='num'>155,14 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055631.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055631.png</a></td><td class='num'>155,14 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055646%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055646 - Kopya.png</a></td><td class='num'>159,42 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055646.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055646.png</a></td><td class='num'>159,42 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055710%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055710 - Kopya.png</a></td><td class='num'>127,79 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055710.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055710.png</a></td><td class='num'>127,79 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055732%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055732 - Kopya.png</a></td><td class='num'>140,87 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055732.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055732.png</a></td><td class='num'>140,87 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055751%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055751 - Kopya.png</a></td><td class='num'>139,74 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055751.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055751.png</a></td><td class='num'>139,74 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055810%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055810 - Kopya.png</a></td><td class='num'>125,11 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055810.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055810.png</a></td><td class='num'>125,11 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055830%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055830 - Kopya.png</a></td><td class='num'>153,21 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055830.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055830.png</a></td><td class='num'>153,21 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055849%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055849 - Kopya.png</a></td><td class='num'>160,15 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055849.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055849.png</a></td><td class='num'>160,15 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055906%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055906 - Kopya.png</a></td><td class='num'>116,60 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055906.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055906.png</a></td><td class='num'>116,60 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055932%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055932 - Kopya.png</a></td><td class='num'>159,90 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055932.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055932.png</a></td><td class='num'>159,90 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055949%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055949 - Kopya.png</a></td><td class='num'>152,57 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20055949.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 055949.png</a></td><td class='num'>152,57 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20060013%20-%20Kopya.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 060013 - Kopya.png</a></td><td class='num'>125,55 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/Ekran%20g%3Fr%3Fnt%3Fs%3F%202026-04-20%20060013.png' target='_blank' rel='noopener'>Ekran g?r?nt?s? 2026-04-20 060013.png</a></td><td class='num'>125,55 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/KVKK%20Ayd%3Fnlatma%20Metni.docx' target='_blank' rel='noopener'>KVKK Ayd?nlatma Metni.docx</a></td><td class='num'>679,24 KB</td><td>2026-05-11T06:26:00+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/inject_js.py' target='_blank' rel='noopener'>inject_js.py</a></td><td class='num'>11,81 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/patch_buttons.py' target='_blank' rel='noopener'>patch_buttons.py</a></td><td class='num'>2,83 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/untitled-1%20-%20Kopya.pdf' target='_blank' rel='noopener'>untitled-1 - Kopya.pdf</a></td><td class='num'>117,03 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/untitled-1.pdf' target='_blank' rel='noopener'>untitled-1.pdf</a></td><td class='num'>117,03 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/write_application.py' target='_blank' rel='noopener'>write_application.py</a></td><td class='num'>3,11 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/write_assets.py' target='_blank' rel='noopener'>write_assets.py</a></td><td class='num'>7,73 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/write_closing.py' target='_blank' rel='noopener'>write_closing.py</a></td><td class='num'>10,29 KB</td><td>2026-05-11T06:25:59+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/write_controls.py' target='_blank' rel='noopener'>write_controls.py</a></td><td class='num'>22,13 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/write_dfi_mgmt.py' target='_blank' rel='noopener'>write_dfi_mgmt.py</a></td><td class='num'>7,99 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/write_readiness.py' target='_blank' rel='noopener'>write_readiness.py</a></td><td class='num'>17,13 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/write_risks.py' target='_blank' rel='noopener'>write_risks.py</a></td><td class='num'>9,67 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/write_soa.py' target='_blank' rel='noopener'>write_soa.py</a></td><td class='num'>18,84 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-            <tr><td><a href='https://storage.googleapis.com/bgys27001-atomic-segment-466806-v8-20260511092521/write_trainings.py' target='_blank' rel='noopener'>write_trainings.py</a></td><td class='num'>8,83 KB</td><td>2026-05-11T06:25:58+0000</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class='foot'><span id='countInfo'>Görünen: 0</span> <span>Bağlantılar yeni sekmede açılır.</span></div>
+    <div class='head'>
+      <h1>BGYS27001 · 5 Ajan Paneli</h1>
+      <div class='meta'>ISO/IEC 27001:2022 Bilgi Güvenliği Yönetim Sistemi — Otomatik Dokümantasyon</div>
     </div>
+    <div class='grid'>
+
+      <div class='aj'>
+        <span class='badge'>AJAN 1</span>
+        <h2>Firma Bilgileri</h2>
+        <p>Tüm belgelerin beslendiği merkezi firma formu (single source of truth).</p>
+        <div class='cnt'>Form: 26 alan · localStorage</div>
+        <a class='btn' href='firma_bilgileri.html'>Formu Aç &rarr;</a>
+      </div>
+
+      <div class='aj'>
+        <span class='badge'>AJAN 2</span>
+        <h2>Politikalar</h2>
+        <p>9 adet ISO 27001 politika dokümanı (turuncu 7C9E0E tasarım).</p>
+        <div class='cnt'><b>9</b> / 9 docx hazır</div>
+        <a class='btn' href='DOKUMANLAR/00-POLİTİKALAR/'>Klasörü Aç &rarr;</a>
+      </div>
+
+      <div class='aj'>
+        <span class='badge'>AJAN 3</span>
+        <h2>Prosedürler</h2>
+        <p>20 adet ISS prosedürü (BG.PRS.01–20), gerçek içerikli.</p>
+        <div class='cnt'><b>20</b> / 20 docx hazır</div>
+        <a class='btn' href='DOKUMANLAR/00-PROSEDÜRLER/'>Klasörü Aç &rarr;</a>
+      </div>
+
+      <div class='aj'>
+        <span class='badge'>AJAN 4</span>
+        <h2>Risk + SoA</h2>
+        <p>Risk Analizi ve Uygulanabilirlik Bildirgesi (93 kontrol, A.5.1–A.8.34).</p>
+        <div class='cnt'><b>2</b> / 2 docx hazır</div>
+        <a class='btn' href='DOKUMANLAR/00-RISK-VE-SOA/'>Klasörü Aç &rarr;</a>
+      </div>
+
+      <div class='aj'>
+        <span class='badge'>AJAN 5</span>
+        <h2>Sözleşmeler</h2>
+        <p>5 ISO 27001 + KVKK uyumlu sözleşme şablonu (NDA, iş, uzaktan, taahhütname).</p>
+        <div class='cnt'><b>5</b> / 5 docx hazır</div>
+        <a class='btn' href='DOKUMANLAR/00-SOZLESMELER/'>Klasörü Aç &rarr;</a>
+      </div>
+
+      <div class='aj cross'>
+        <span class='badge'>AJAN 4.5</span>
+        <h2>Çapraz Kontrol</h2>
+        <p>SoA kontrollerinin politika/prosedürlerde karşılanma doğrulaması.</p>
+        <div class='cnt'>Metin Eşleşmesi Yok: <b>0</b></div>
+        <a class='btn' href='DOKUMANLAR/00-RISK-VE-SOA/karsilastir_rapor.html'>Raporu Aç &rarr;</a>
+      </div>
+
+    </div>
+    <div class='foot'>Tüm ajani tek komutla üret: <code>uret_hepsi.py</code> · Firma değişkenleri: <code>enjekte_firma.py</code></div>
   </div>
-  <script>
-    (function () {
-      const search = document.getElementById('searchBox');
-      const chipsWrap = document.getElementById('extChips');
-      const rows = Array.from(document.querySelectorAll('tbody tr'));
-      const info = document.getElementById('countInfo');
-      const extSet = new Set();
-
-      rows.forEach((row) => {
-        const a = row.querySelector('a');
-        const name = a ? a.textContent.trim() : '';
-        const m = name.match(/\.([^.\s]+)$/);
-        const ext = m ? ('.' + m[1].toLowerCase()) : '(uzanti-yok)';
-        row.dataset.name = name.toLowerCase();
-        row.dataset.ext = ext;
-        extSet.add(ext);
-      });
-
-      Array.from(extSet).sort().forEach((ext) => {
-        const b = document.createElement('button');
-        b.className = 'chip';
-        b.dataset.ext = ext;
-        b.textContent = ext;
-        chipsWrap.appendChild(b);
-      });
-
-      function apply() {
-        const q = (search.value || '').toLowerCase().trim();
-        const activeBtn = chipsWrap.querySelector('.chip.active');
-        const activeExt = activeBtn ? activeBtn.dataset.ext : 'all';
-        let visible = 0;
-
-        rows.forEach((row) => {
-          const matchQ = !q || row.dataset.name.includes(q);
-          const matchExt = activeExt === 'all' || row.dataset.ext === activeExt;
-          const show = matchQ && matchExt;
-          row.style.display = show ? '' : 'none';
-          if (show) visible++;
-        });
-
-        info.textContent = 'Görünen: ' + visible + ' / ' + rows.length;
-      }
-
-      chipsWrap.addEventListener('click', (ev) => {
-        const btn = ev.target.closest('.chip');
-        if (!btn) return;
-        chipsWrap.querySelectorAll('.chip').forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-        apply();
-      });
-
-      search.addEventListener('input', apply);
-      apply();
-    })();
-  </script>
 </body>
 </html>
