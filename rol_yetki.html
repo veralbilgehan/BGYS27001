@@ -223,7 +223,7 @@ function renderRol(list){
       <td>${r.sorumlu}</td><td>${r.yetki}</td><td>${r.rev}</td>
       <td><span class='status'>Aktif</span></td>
       <td><div class='act'>
-        <button class='view' onclick='detay("${r.ad}")'>&#128065; Detay</button>
+        <button class='view' onclick='detay("${r.ad}","${r.kod}")'>&#128065; Detay</button>
         <button class='edit' onclick='duzenle("${r.kod}")'>&#9998; Düzenle</button>
         <button class='del' onclick='sil("${r.kod}")'>&#128465; Sil</button>
       </div></td>`;
