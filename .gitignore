@@ -13,6 +13,12 @@ index.atomic-segment-*
 protokol_preview.html
 IDEA.md
 
+# Gecici onizleme HTML/JS kalintilari (docx_onizleme.py ciktisi)
+preview_*.html
+prosedur_data.js
+uret_prosedurler.html
+uret_risk_soa.html
+
 # OS
 Thumbs.db
 Desktop.ini
