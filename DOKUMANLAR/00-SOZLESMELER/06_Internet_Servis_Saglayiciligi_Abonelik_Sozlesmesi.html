@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnternet Servis Sağlayıcılığı Abonelik Sözleşmesi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #111;
+        }
+        h1 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        h2 {
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        h3 {
+            font-size: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+        p, li {
+            font-size: 12px;
+            text-align: justify;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        .table-info {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+        .table-info td {
+            padding: 6px;
+            vertical-align: top;
+        }
+        .table-info td.label {
+            font-weight: bold;
+            width: 30%;
+        }
+        .checkbox-group {
+            margin: 10px 0;
+            font-size: 12px;
+        }
+        .signature-section {
+            margin-top: 30px;
+            width: 100%;
+            font-size: 12px;
+        }
+        .signature-box {
+            width: 48%;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .variable {
+            font-weight: bold;
+            color: #0056b3;
+        }
+        .footer-info {
+            margin-top: 30px;
+            font-size: 10px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>SÖZLEŞME</h1>
+    <h2>İNTERNET SERVİS SAĞLAYICILIĞI ABONELİK SÖZLEŞMESİ</h2>
+
+    <h3>1. TARAFLAR</h3>
+    <p>Bir tarafta,</p>
+    <p>
+        <strong>1.1. {{PLATFORM_UNVAN}}</strong> ("PLATFORM")<br>
+        Adres: {{PLATFORM_ADRES}}<br>
+        Telefon: {{PLATFORM_TELEFON}} - Faks: {{PLATFORM_FAKS}}<br>
+        E-posta: {{PLATFORM_EPOSTA}}<br>
+        Mersis No: {{PLATFORM_MERSIS_NO}}
+    </p>
+    <p>ile diğer tarafta,</p>
+    <p><strong>1.2. ABONE</strong></p>
+    <table class="table-info">
+        <tr>
+            <td class="label">Adı Soyadı / Unvanı:</td>
+            <td><span class="variable">{{ABONE_ADI_SOYADI}}</span></td>
+        </tr>
+        <tr>
+            <td class="label">Adres:</td>
+            <td><span class="variable">{{ABONE_ADRES}}</span></td>
+        </tr>
+        <tr>
+            <td class="label">Telefon:</td>
+            <td><span class="variable">{{ABONE_TELEFON}}</span></td>
+        </tr>
+        <tr>
+            <td class="label">T.C. Kimlik No / Vergi No:</td>
+            <td><span class="variable">{{ABONE_TC_VERGI_NO}}</span></td>
+        </tr>
+    </table>
+
+    <h3>2. TANIMLAR</h3>
+    <p><strong>2.1. Platform:</strong> Elektronik Haberleşme Sektörüne İlişkin Yetkilendirme Yönetmeliği'nin 4/0 hükmünde belirtildiği şekilde "İşletmeci" sıfatıyla ABONE'ye İnternet Servis Sağlayıcılığı Hizmeti'ni sunan {{PLATFORM_UNVAN}}.</p>
+    <p><strong>2.2. D-Smart:</strong> {{IS_ORTAGI_UNVAN}}.</p>
+    <p><strong>2.3. Abone:</strong> İşbu Sözleşme kapsamında PLATFORM tarafından sunulan İnternet Servis Sağlayıcılığı Hizmeti'ni satın alan gerçek ve/veya tüzel kişi.</p>
+    <p><strong>2.4. İnternet Servis Sağlayıcılığı Hizmeti:</strong> PLATFORM tarafından Elektronik Haberleşme Kanunu ve ilgili mevzuata uygun olarak ABONE'ye sunulan internet şebekesine erişim hizmeti.</p>
+    <p><strong>2.5. Modem:</strong> ABONE tarafından internete erişim sağlanabilmesi amacıyla mutlaka gerekli olan ve genel internet ağına bağlantıyı sağlayan ağ elemanı niteliğinde, hizmetin sunulduğu altyapı sağlayıcı kriterlerine ve standartlarına uygun, ilgili kurum ve kuruluşlar tarafından onaylanmış, kablolu ve/veya kablosuz bağlantı özelliğine sahip, 220V şebeke gerilimi ile çalışan elektronik cihaz.</p>
+    <p><strong>2.6. Borçtan Kapama-Açma Ücreti:</strong> Hizmet bedellerinin ödenmemesi ve hizmetlerin kısıtlanması/askıya alınması ve tekrar aktive edilmesi dolayısıyla ABONE'ye yansıtılan tutar.</p>
+    <p><strong>2.7. Aktivasyon Ücreti:</strong> İnternet Servis Sağlayıcılığı Hizmeti'ne erişimin sağlanabilmesi için yapılan teknik aktivasyon işlemi nedeniyle ABONE'ye yansıtılan tutar.</p>
+
+    <h3>3. SÖZLEŞME'NİN KONUSU</h3>
+    <p>Sözleşme'nin konusu, ABONE tarafından talep edilen İnternet Servis Sağlayıcılığı Hizmeti'nin PLATFORM tarafından sağlanmasına ilişkin hak ve yükümlülüklerin belirlenmesidir.</p>
+
+    <h3>4. TARAFLARIN HAK VE YÜKÜMLÜLÜKLERİ</h3>
+    
+    <h4>4.1. GENEL HÜKÜMLER</h4>
+    <p><strong>4.1.1.</strong> ABONE, PLATFORM tarafından sunulan İnternet Servis Sağlayıcılığı Hizmeti'ni belirlenen koşullarda almayı PLATFORM tarafından sunulan hizmetlere ilişkin tüm bedelleri, PLATFORM tarafından gönderilecek faturada bildirilen yöntemlerle PLATFORM'a ödemeyi kabul, beyan ve taahhüt eder.</p>
+    <p><strong>4.1.2.</strong> ABONE tarafından, işbu Sözleşme'ye konu tüm hizmet bedellerinin son ödeme tarihine kadar tamamen ve/veya kısmen ödenmemesi halinde, işbu Sözleşme kapsamında sunulan hizmetler PLATFORM tarafından en geç 24 (yirmi dört) saat içerisinde tek taraflı olarak kısıtlanabilir ve/veya askıya alınıp durdurulabilir. Hizmetin kısıtlanması durumunda, PLATFORM tarafından ücretlendirmeye devam edilir. Kısıtlama hakkında ayrıntılı bilgiye <span class="variable">{{PLATFORM_WEB_ADRESI}}</span> adresinden ulaşılabilir. Borcun ödenmesi halinde, kısıtlama en geç 24 (yirmi dört) saat içerisinde kaldırılır. Hizmetin, borcun ödenmemesi nedeniyle durdurulmuş olması durumunda da, borcun ödenmesiyle birlikte en geç 24 (yirmi dört) saat içerisinde hizmet tekrar sunulur. ABONE tarafından ödenmesi gereken hizmet bedellerinin en geç 60 (altmış) gün içerisinde ödenmemesi durumunda PLATFORM, Sözleşme'yi tek taraflı olarak ABONE'ye yazılı bildirimde bulunarak veya kalıcı veri saklayıcısıyla bildirmek suretiyle feshedebilir. PLATFORM, Sözleşme kapsamındaki hizmet bedellerinin ödenmesinde gecikme nedeniyle alacağın tahsili için yasal yollara müracaat edebilir. Gecikme halinde ABONE, ilgili hizmet faturalarında önceden bildirilmiş ve <span class="variable">{{PLATFORM_WEB_ADRESI}}</span> adresinde duyurulan oranda Gecikme Faizi ile PLATFORM'un maruz kalacağı tüm zarar ve ziyanı ödemeyi kabul, beyan ve taahhüt eder. Ayrıca ABONE, gecikme halinde, hizmetin askıya alınmış olduğu dönem boyunca ABONE'ye tahsis edilmiş olan donanımlara (Modem gibi) ilişkin tüm kullanım bedellerini ve Sözleşme'nin iptali tarihine kadar PLATFORM'un maruz kalacağı tüm giderleri de ödemeyi kabul, beyan ve taahhüt eder.</p>
+    <p><strong>4.1.3.</strong> ABONE, PLATFORM tarafından sunulan İnternet Servis Sağlayıcılığı Hizmet bedelinin (daha uzun dönemlere ilişkin kampanyalar ve ödeme şekilleri hariç olmak üzere), aylık olarak faturalanacağını ve peşin olarak ödenmesi gerektiğini kabul, beyan ve taahhüt eder. Aylık ödemeli aboneliklerde, Sözleşme'nin imzalanmasını müteakip ilk fatura, ilgili aya ilişkin kısmi hizmet bedeli ile müteakip ay hizmet bedelini içerir.</p>
+    <p><strong>4.1.4.</strong> İşbu Sözleşme kapsamında sunulacak hizmetten yararlanması için Sözleşme süresince ABONE'ye kullanım bedeli karşılığında sağlanacak Modem'in mülkiyeti PLATFORM'a aittir. PLATFORM tarafından sağlanan Modem, fiber ve ADSL hizmetleri bakımından farklılık gösterebilir. ABONE, söz konusu donanımın çalışır vaziyette muhafazasını teminen, donanımı kullanım süresi boyunca kullanma kılavuzunda yer alan talimatlara uygun olarak kullanmak, azami özen ve dikkati göstermekle yükümlüdür.</p>
+    <p>ABONE, PLATFORM'a ait donanımla ilgili olarak kurulum, sorun veya arızalar hakkında <span class="variable">{{MUSTERI_HIZMETLERI_TEL}}</span> no'lu hattı arayarak destek alabilir. PLATFORM, mümkün olan en kısa sürede sorun veya arızanın giderilebilmesini teminen gerekli tüm yönlendirme ve desteği verecektir. Bu kapsamda, böyle bir sorun ve arızanın meydana gelmesi halinde, öncelikle müşteri hizmetleri aracılığıyla sorun ve arızanın giderilmesine çalışılacak, bu mümkün olmadığında ABONE, teknik servis ve/veya bayiye yönlendirilecektir. ABONE, bildirilen teknik servis ve/veya bayiye söz konusu donanımı teslim etmekle yükümlüdür.</p>
+    <p>ABONE'den kaynaklanmayan tüm bakım ve onarım sorumluluğu, abonelik süresince PLATFORM'a ait olup ABONE tarafından herhangi bir ücret ödenmeyecektir.</p>
+    <p>ABONE'den kaynaklanan nedenlerle meydana gelen arıza ve/veya sorunun giderilebilmesi amacıyla PLATFORM'un maruz kalacağı servis, bakım, onarım ve ekipman giderleri ABONE'ye faturalanır ve ABONE tarafından ödenir. ABONE'den kaynaklanan nedenlerle kullanılamaz duruma gelen donanımın bedeli ABONE'ye fatura edilir. Güncel donanım ücretleri <span class="variable">{{PLATFORM_WEB_ADRESI}}</span> adresinde duyurulmaktadır.</p>
+    <p>PLATFORM'un bakım ve onarım mükellefiyetleri, sadece mülkiyeti PLATFORM'a ait olup ABONE'ye sağlanmış olan donanıma münhasırdır. ABONE, PLATFORM tarafından sağlanmamış olan ve hizmetin kullanımı için gerekli sair donanım ve ekipmana ilişkin servis, bakım ve onarımın ücrete tabi olduğunu ve buna ilişkin olarak PLATFORM'un bakım ve onarım servisi sağlama yükümlülüğü bulunmadığını kabul ve beyan eder.</p>
+    <p><strong>4.1.5. Tarifeler:</strong> PLATFORM tarafından sunulan hizmetlere ilişkin güncel tarife bilgileri <span class="variable">{{MUSTERI_HIZMETLERI_TEL}}</span> numaralı telefon aranarak veya <span class="variable">{{PLATFORM_WEB_ADRESI}}</span> adlı internet sitesi aracılığıyla öğrenilebilir. PLATFORM, önceden duyurmak suretiyle hizmetlere ilişkin tarifelerde değişiklik yapma hakkını saklı tutar. Tarife değişikliğinin kabul edilmediği, ABONE tarafından bildirimi takip eden 15 (on beş) gün içerisinde PLATFORM'a bildirilmediği takdirde, söz konusu değişiklik kabul edilmiş sayılır. Hizmet bedeli içerisinde yer alan vergi ve benzeri ödenmesi zorunlu tutarlarda meydana gelen değişiklikler hizmet bedeline yansıtılacaktır. Bu durumda meydana gelen değişiklik, ABONE adına düzenlenen ilk faturada ABONE'ye bildirilecektir.</p>
+    <p><strong>4.1.6.</strong> ABONE, PLATFORM tarafından İnternet Servis Sağlayıcılığı Hizmeti sunumuna başlanmasından itibaren, ABONE'den kaynaklanan nedenlerle hizmet sunumunun kısıtlandığı ve/veya askıya alındığı hallerde Borçtan Kapama-Açma Ücreti alınabileceğini ve söz konusu durumlarda bu bedelleri PLATFORM'a ödemeyi kabul, beyan ve taahhüt eder. Güncel Borçtan Kapama-Açma Ücretleri ile nakil, tarife değişiklik ücretleri ve benzeri ücret bilgilerine <span class="variable">{{MUSTERI_HIZMETLERI_TEL}}</span> numaralı telefon aranarak veya <span class="variable">{{PLATFORM_WEB_ADRESI}}</span> adresinden ulaşılabilir.</p>
+    <p><strong>4.1.7. Hizmet Kalite Seviyesi:</strong> PLATFORM tarafından işbu Sözleşme kapsamında sunulacak hizmetlerin mücbir sebepler (savaş, iç karışıklık, deprem, sel, yangın ve benzeri) hariç olmak üzere, ABONE'den kaynaklanmayan bir nedenle 48 (kırk sekiz) saati aşar şekilde sunulamaması ve ABONE tarafından talep edilmesi halinde sunulamayan hizmetin bedeli bir sonraki aya ilişkin faturaya indirim olarak yansıtılacaktır. Ancak, PLATFORM kayıtlarında bulunamayan veya teyit edilemeyen kesintiler için ücret iadesi veya indirim yapılmayacaktır.</p>
+    <p>ABONE tarafından tercih edilen bağlantı hızı, teknik olarak sağlanabilecek olan azami hız değerlerini ifade etmekte olup, fiilen elde edilebilecek internet hızı (download, upload) sonuçları bazı faktörlere (modemin santrale olan mesafesi, kablolu yahut kablosuz bağlantı sağlanması, altyapıda kullanılan kablolama kalitesi ve şekli vb.) göre değişiklik gösterebilir. Sözleşme kapsamında sağlanan internet erişimine ilişkin hizmet standartları, hizmetin sağlandığı altyapı sağlayıcı imkanları dahilinde sunulabilmektedir. O nedenle, altyapı sağlayıcıdan kaynaklanabilecek hizmet kalite seviyesine ilişkin sorunlardan PLATFORM'un sorumluluğu bulunmamaktadır.</p>
+    <p>PLATFORM tarafından işbu Sözleşme kapsamında sunulacak hizmetlerin, PLATFORM'un kusurundan kaynaklanan nedenlerle işbu Sözleşme kapsamında öngörülen hizmet kalitesine uygun olmaması durumunda ABONE, 6502 sayılı Tüketicinin Korunması Hakkında Kanun'un 15. maddesine uygun olarak aşağıda belirtilen seçimlik hakları kullanmakta serbesttir:</p>
+    <ol>
+        <li>Hizmetin ayıplı ifa edildiği durumlarda ABONE, hizmetin yeniden ifasını, ayıp oranında bedelden indirim veya sözleşmeden dönme haklarından birini kullanmakta serbesttir. PLATFORM, ABONE'nin bu talebine uyacaktır. Seçimlik hakların kullanılması nedeniyle ortaya çıkan tüm masraflar ve hizmetin ayıplı olması nedeniyle ABONE'nin maruz kalacağı doğrudan zararlar PLATFORM tarafından karşılanır.</li>
+        <li>ABONE'nin sözleşmeden dönme veya ayıp oranında bedelden indirim hakkını seçtiği durumlarda, ödemiş olduğu bedelin tümü veya bedelden indirim yapılan tutar talep halinde derhâl tüketiciye iade edilir.</li>
+        <li>ABONE tarafından hizmetin yeniden ifasının seçildiği hâllerde, hizmetin niteliği ve tüketicinin bu hizmetten yararlanma amacı dikkate alındığında, makul sayılabilecek bir süre içinde ve tüketici için ciddi sorunlar doğurmayacak şekilde bu talep sağlayıcı tarafından yerine getirilir. Her hâlükârda bu süre talebin PLATFORM'a yöneltilmesinden itibaren otuz iş gününü geçemez. Aksi takdirde ABONE, diğer seçimlik haklarını kullanmakta serbesttir.</li>
+    </ol>
+    <p><strong>4.1.8.</strong> ABONE, PLATFORM'un sunduğu İnternet Servis Sağlayıcılığı Hizmeti'nden yararlanabilmek için <span class="variable">{{MUSTERI_HIZMETLERI_TEL}}</span> numaralı telefonu arayarak veya yetkili bayilere müracaat ederek aktivasyon işlemini gerçekleştirmek ve talep edilen kişisel güvenlik bilgilerini sağlamakla yükümlüdür. ABONE, aktivasyon sırasında bildirdiği kişisel güvenlik bilgilerinin doğru olduğunu ve bu bilgilerdeki değişiklikleri en geç 15 (on beş) gün içerisinde PLATFORM'a bildirmeyi kabul ve taahhüt eder.</p>
+    <p><strong>4.1.9.</strong> Veri Sorumlusu PLATFORM tarafından, işbu Sözleşme vasıtasıyla toplanan ABONE'nin kimliğini belirli veya belirlenebilir kılan her türlü bilgi ("Kişisel Veri"), işbu Sözleşme'nin ifası kapsamında Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca "Bir sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması kaydıyla, sözleşmenin taraflarına ait kişisel verilerin işlenmesinin gerekli olması" ve "Veri sorumlusunun hukuki yükümlülüğünü yerine getirebilmesi için zorunlu olması" nedenleriyle; trafik yönetimi, arabağlantı, faturalama, yolsuzluk tespitleri, tüketici şikâyetlerinin değerlendirilmesi, elektronik haberleşme hizmetlerinin pazarlanması veya katma değerli elektronik haberleşme hizmetlerinin sunulabilmesi amaçlarıyla işlenebilecek ve bu amacın gerektirdiği süre ve ölçüyle sınırlı olarak, saklanabilecek ve veri işleme amaçları ile sınırlı olarak PLATFORM tarafından iş ortaklarına ve tedarikçilerine aktarılabilecektir.</p>
+    <p><strong>4.1.10.</strong> ABONE'nin işbu Sözleşme kapsamında işlenen kişisel verilerine ilişkin hakları KVKK'nın 11. maddesinde düzenlenmiştir. ABONE, söz konusu haklarını kullanmak için ayrıntılı bilgiye <span class="variable">{{KVKK_AYDINLATMA_METNI_URL}}</span> adresinde yayınlanan Aydınlatma Metni üzerinden ulaşabilir. ABONE, <span class="variable">{{KVKK_AYDINLATMA_METNI_URL}}</span> adresinde yayınlanan Aydınlatma Metni'ni ve ayrıca işbu maddede belirtilen tüm hususları okuduğunu, incelediğini, değerlendirdiğini, bildiğini ve anladığını kabul, beyan ve taahhüt eder. İşbu maddedeki hususların uygulanması kapsamında, Kişisel Verilerin işlenmesi faaliyetleri sırasında PLATFORM'un kusuru veya ihmali dolayısıyla, ABONE'nin Kişisel Verileri Koruma Kurulu'na şikayet hakkı ile doğan her türlü zararına ilişkin talep ve dava hakkı saklıdır.</p>
+    <p><strong>4.1.11.</strong> ABONE, yukarıda 4.1.9. ve 4.1.10. maddelerinde belirtilen ve işbu Sözleşme kapsamında aşağıdaki İşlem Tercihlerine uygun olarak verdiği izinlerin, işbu Sözleşme süresinden bağımsız olarak ABONE tarafından yasal sınırlamalara tabi olmak kaydıyla geri alınacağı tarihe kadar geçerliliğini sürdüreceğini kabul, beyan ve taahhüt eder.</p>
+    <p><strong>4.1.12. Uyuşmazlıkların Çözümü ve Yetkili Mahkeme:</strong> PLATFORM; mevzuat doğrultusunda tüketici şikayetlerini karşılayacaktır. PLATFORM internet sitesinin ana sayfasında 'tüketici şikâyetleri' başlığı altında abonelerinin şikâyetlerini kolayca ve ücretsiz olarak iletebileceği ve işletmeci tarafından verilen cevapları görebileceği bir bölüm oluşturulmuş olup, yapılan şikayetlerin 10 iş günü içinde cevaplandırılması amaçlanmaktadır.</p>
+    <p>İşbu sözleşmenin uygulanmasından kaynaklanacak ihtilaflarda İstanbul ve ABONE'nin ikametgahı mahkemeleri ile İcra Daireleri yetkilidir. ABONE, işbu Sözleşme'den kaynaklanan uyuşmazlıklarda, öncelikle PLATFORM'a müracaat ederek sorunun giderilmesini talep etmek zorundadır. Sorunun çözülmemesi halinde ABONE, Bakanlıkça her yıl Aralık ayında belirlenen parasal sınırlar dahilinde hizmeti satın aldığı veya ikametgahının bulunduğu yerdeki tüketici sorunları hakem heyetine veya tüketici mahkemesine başvurabilir.</p>
+    <p><strong>4.1.13.</strong> İşbu Sözleşme kapsamında, İnternet Servis Sağlayıcılığı hizmetlerinin alınabilmesi için gerekli olan bina içi altyapı ve tesisatın hizmetin sağlanmasına hazır halde bulundurulmasından ABONE sorumludur. Aksi halde, hizmetlerin sağlanamamasından PLATFORM sorumlu tutulamaz.</p>
+    <p><strong>4.1.14. Süre ve Fesih:</strong> İşbu sözleşme, imza tarihinden itibaren ABONE'nin hizmet alımı süresince ve PLATFORM veya ABONE tarafından yazılı olarak feshedilinciye kadar geçerlidir. ABONE ve PLATFORM, yazılı olarak bildirmek kaydıyla işbu Sözleşme'yi her zaman sona erdirebilir. ABONE, Sözleşme'yi feshetmek istediği takdirde bu talebini yazılı olarak veya faks yoluyla veya güvenli elektronik imza ile gönderilip saklanabilen metinler kullanmak suretiyle PLATFORM'a ya da yine yazılı olarak PLATFORM'un abonelik sözleşmesi yapmaya yetkili temsilcisine bildirir. ABONE'nin, işbu Sözleşme kapsamında sunulan herhangi bir hizmete ilişkin fesih talebi, bir kampanya kapsamında aynı anda ve birlikte satın aldığı diğer hizmetler bakımından da fesih talebinde bulunulduğu anlamına gelecektir.</p>
+    <p>ABONE, yazılı fesih bildirimini takip eden 7 (yedi) gün içerisinde kendisine teslim edilmiş olan her türlü donanımı PLATFORM'a veya PLATFORM tarafından bildirilen temsilciye iade ve teslim eder. Aksi halde, söz konusu donanım tutarları ABONE'ye faturalanır. ABONE, söz konusu fatura tutarlarına itiraz etmeyeceğini ve bu bedeli ödemeyi kabul, beyan ve taahhüt eder.</p>
+    <p><strong>4.1.15. Damga Vergisi:</strong> İşbu iki nüshadan ibaret Sözleşme'den doğan damga vergisi tutarı, ABONE'ye faturalanır ve ABONE tarafından PLATFORM'a ödenir.</p>
+    <p><strong>4.1.16.</strong> Altyapı sağlayıcıları, yetkili resmi merciler ve/veya sair üçüncü kişilerin tasarruflarından ve/veya şebeke çalışmalarından kaynaklanan zorunlu nedenlerle hizmet sunulamaması ve/veya kesintilerin oluşması halinde, PLATFORM'un herhangi bir sorumluluğu bulunmayacaktır.</p>
+    <p><strong>4.1.17. Mesafeli Satış Halinde Cayma Hakkı:</strong> Tüketicinin, mesafeli satış yöntemiyle hizmet satın alması halinde hiçbir hukuki ve cezai sorumluluk üstlenmeksizin ve hiçbir gerekçe göstermeksizin sözleşmenin imzalandığı tarihten itibaren on dört gün içerisinde, teslim aldığı malı veya hizmeti reddederek sözleşmeden cayma hakkının var olduğunu ve cayma bildiriminin satıcı/sağlayıcıya ulaşması tarihinden itibaren yirmi gün içerisinde malı geri almayı taahhüt ederiz.</p>
+    <p>ABONE, cayma ihbarını yazılı olarak veya faks yoluyla veya güvenli elektronik imza ile gönderilip saklanabilen metinler kullanmak suretiyle PLATFORM'a ya da yine yazılı olarak PLATFORM'un abonelik sözleşmesi yapmaya yetkili temsilcisine bildirir. Bu halde ABONE'den ayrıca aylık hizmet bedeli alınmaz.</p>
+    <p><strong>4.1.18.</strong> ABONE, işbu Sözleşme kapsamında hizmetlerin sunumu açısından PLATFORM'a yapacağı müracaatlarda T.C. Kimlik Numarası ile birlikte bilgilerin güvenliğini tesis amacına yönelik sorulan kişisel bilgileri doğru ve tam bir şekilde teminle mükelleftir. Ayrıca ABONE, hizmetlerin sunumuna yönelik olarak PLATFORM'a ait web sitesi veya diğer mecralara ilişkin ABONE'ye özel verilen kullanıcı adı veya şifre bilgilerini üçüncü kişilerle paylaşmamayı, bilgilerin güvenli şekilde saklanması sorumluluğunun kendisine ait olduğunu ve bu bilgilerin üçüncü kişiler tarafından kullanılması nedeniyle oluşabilecek zararlardan PLATFORM'un sorumlu olmadığını kabul, beyan ve taahhüt eder.</p>
+    <p><strong>4.1.19.</strong> ABONE, işbu Sözleşme kapsamında aldığı hizmeti yine Sözleşme'de bildirdiği adreste ve bağlantı noktasında kullanabilecektir. ABONE tarafından, adres değişikliği ve benzeri nedenlerle nakil talebinde bulunulması halinde, nakil talebi ABONE tarafından adres değişikliğinin ikametgah ilmuhaberi ve benzeri belgelerle tevsik edilmesi şartıyla altyapı sağlayıcı tarafından sağlanan imkanlar dahilinde gerçekleştirilecek olup nakil süresince herhangi bir ücretlendirme yapılmayacaktır. ABONE tarafından nakil talep edilen adreste aynı nitelikte hizmet sunumunun altyapı sağlayıcı nedeniyle mümkün olmaması halinde PLATFORM'un bir sorumluluğu bulunmayacaktır. Taahhütlü aboneliklerde ABONE'nin yerleşim yerinin değişmesi ve taahhüt konusu hizmetin ABONE'ye yeni yerleşim yerinde aynı nitelikte sunulmasının fiilen imkânsız olması durumunda ABONE tarafından, yerleşim yeri değişikliğinin belgelendirilmesi halinde herhangi bir cayma bedeli ödenmeksizin taahhütlü abonelik feshedilebilir. Bu hüküm uyarınca cihazın ABONE'de kaldığı hallerde PLATFORM, cihazın kullanım ücretini aboneden talep edebilir.</p>
+    <p>ABONE, nakil işleminin gerçekleştirilmesi karşılığında <span class="variable">{{PLATFORM_WEB_ADRESI}}</span> adresinde duyurulan nakil işlem ücretini ödemeyi kabul, beyan ve taahhüt eder.</p>
+
+    <h4>4.2. ÖZEL HÜKÜMLER</h4>
+    <p><strong>4.2.1.</strong> PLATFORM, işbu Sözleşme kapsamında yükümlendiği internet hizmetini, Sözleşme'nin imzası tarihinden itibaren en geç 30 (otuz) gün içerisinde aktive etmeyi kabul, beyan ve taahhüt eder. Bununla birlikte, ABONE'den ve/veya altyapı sağlayıcıdan kaynaklanan gecikmelerden PLATFORM sorumlu tutulamaz.</p>
+    <p><strong>4.2.2.</strong> ABONE, aldığı hizmette temin edilen hızın ulaşılabilecek en yüksek hız olduğunu, internet hızının bazı dış (altyapı sağlayıcı, bağlantı yapılmak istenen noktanın yeterliliği veya yoğunluğu vb.) ve iç (ABONE lokasyonundaki altyapıya ilişkin) faktörlere bağlı olarak değişiklik gösterebileceğini ve bu nedenlerle PLATFORM'un sorumluluğunun bulunmadığını kabul ve beyan eder.</p>
+    <p><strong>4.2.3.</strong> ABONE, internet hizmetini hukuka uygun amaçlarla kullanacağını ve belirtilen adres dışında başka bir adresteki kişi ya da kurumlarla ortak kullanıma açmayacağını, internete erişim sırasında alınan ve gönderilen içeriğin ABONE'nin sorumluluğunda olduğunu ve internet bağlantısı sağlanacak noktalardan gerçekleşecek trafik sırasında oluşabilecek zararlardan PLATFORM'un sorumlu olmadığını, internete erişim sırasında üçüncü kişilerce ağ üzerinden gerçekleştirilebilecek saldırılara karşı antivirüs (virüsten koruyucu), antispam (istenmeyen elektronik posta engeli), firewall (güvenlik duvarı) gibi güvenlik önlemleri almanın ABONE'nin sorumluluğunda bulunduğunu ve PLATFORM'un sorumlu tutulamayacağını kabul, beyan ve taahhüt eder. ABONE tarafından başka adresteki kişi ve kurumlarla hizmetin paylaşıldığının anlaşılması halinde söz konusu hizmet ABONE dahil, ortak kullanımda bulunan kişi ya da kurumların kullanımına kapatılabilecek ve bu aykırılık nedeniyle Sözleşme PLATFORM tarafından tek taraflı olarak feshedilebilecektir.</p>
+    <p><strong>4.2.4.</strong> ABONE'nin iç bağlantı noktasından bina bağlantı kutusuna kadar meydana gelebilecek sorunlardan ABONE, bina bağlantı kutusu ile altyapı sağlayıcı santrallerine kadar olan bağlantılardan ve altyapı sağlayıcı nezdinde gerçekleşebilecek sorunlardan ise altyapı sağlayıcının sorumlu olduğunu, bu noktalarda PLATFORM'un sorumluluğunun bulunmadığını kabul, beyan ve taahhüt eder. Bununla birlikte PLATFORM, altyapı sağlayıcı nezdinde gerçekleşen sorunlarla ilgili olarak ABONE adına altyapı sağlayıcı nezdinde gerekli sorunların çözümü amacıyla gayret göstermeyi beyan ve taahhüt eder. Bu amaçla ABONE, altyapı sağlayıcı nezdinde hizmetle ilgili gerekli tüm işlemlerin gerçekleştirilmesi hususunda PLATFORM'u yetkilendirmiştir.</p>
+    <p><strong>4.2.5.</strong> Yalın internet hizmeti hariç olmak üzere, hizmetin sunulabilmesi için, bağlantı talep edilen noktada bir telefon hattı bağlantısının bulunması ve söz konusu telefon hattı üzerinde altyapı sağlayıcıya ait başka bir hizmetin (çoklayıcı- isdn-pbx (santral) vb.) alınmıyor olması gereklidir.</p>
+    <p><strong>4.2.6.</strong> ABONE, PLATFORM'un muhtelif servislerde ihtiyaç duyulacak yeni ayar ve konfigürasyonun gerçekleştirilebilmesi, oluşabilecek arıza veya sorunların giderilebilmesi ve gereken sair durumlarda Modem'e uzaktan erişim sağlanabileceğini ve yönetilebileceğini, bu duruma peşinen muvafakat ettiğini kabul, beyan ve taahhüt eder.</p>
+
+    <h3>5. İŞLEM TERCİHLERİ VE ONAYLAR</h3>
+    <p>İşbu Sözleşme, tarafların serbest iradeleriyle düzenlenmiş olup Sözleşme'nin bir nüshası ABONE'ye teslim edilmiştir.</p>
+    
+    <p><strong>ABONE'nin İşlem Tercihleri:</strong></p>
+    
+    <div class="checkbox-group">
+        <input type="checkbox" id="e_fatura" {{E_FATURA_ONAY_CHECKED}}>
+        <label for="e_fatura">Hizmete ilişkin faturalarımın posta yerine elektronik ortamda gönderilmesini istiyorum.</label>
+        <div><small>(Ret Durumu: {{E_FATURA_RET_DURUMU}})</small></div>
+    </div>
+
+    <div class="checkbox-group">
+        <input type="checkbox" id="kvkk_pazarlama" {{KVKK_PAZARLAMA_ONAY_CHECKED}}>
+        <label for="kvkk_pazarlama">İşbu Sözleşme ve ekleri uyarınca alacağım hizmet kapsamında toplanan kimlik, iletişim ve müşteri işlem (cihaz ve paket bilgileri) bilgilerimin elektronik haberleşme hizmetlerinin pazarlanması ve alışkanlıklarımın tespit edilmesi ve bana uygun hizmet sunulması ve bana özel önerilerde bulunulması için verilerimin kategorize edilmesi amaçlarıyla PLATFORM tarafından işlenmesine bu amaçlar için belirlenmiş olan sürelerle sınırlı olarak saklanmasına, D-Smart dahil olmak üzere iş ortaklarına ve tedarikçilerine aktarılmasına onay veriyorum.</label>
+        <div><small>(Ret Durumu: {{KVKK_PAZARLAMA_RET_DURUMU}})</small></div>
+    </div>
+
+    <div class="checkbox-group">
+        <input type="checkbox" id="ticari_ileti" {{TICARI_ILETI_ONAY_CHECKED}}>
+        <label for="ticari_ileti">D-Smart ve/veya PLATFORM tarafından, bildirmiş olduğum iletişim bilgilerim yasal sınırlamalar dahilinde kullanılarak; müşteri memnuniyetine yönelik etkinliklerin, iletişim faaliyetlerinin ve ürün/hizmet pazarlama süreçlerinin yürütülmesi amaçlarıyla tarafıma e-posta, SMS ve telefon aracılığıyla ticari elektronik ileti gönderilmesine onay veriyorum.</label>
+        <div><small>(Ret Durumu: {{TICARI_ILETI_RET_DURUMU}})</small></div>
+    </div>
+
+    <p><small>Yukarıda belirtilen tercihlerde onay verilmemesi/ret işaretlenmesi, iznin verilmediği anlamına gelmektedir. Yukarıda belirtilen İşlem Tercihlerimi, Online İşlem Merkezi ve PLATFORM Çağrı Merkezi üzerinden ücretsiz olarak her zaman değiştirme imkanım olduğunu, verdiğim iznin geri alınması halinde bu durumun işbu Sözleşme'ye aykırılık teşkil etmeyeceğini bildiğimi kabul ve beyan ederim.</small></p>
+
+    <div class="signature-section">
+        <div class="signature-box">
+            <p><strong>ABONE:</strong></p>
+            <p>Adı-Soyadı/Unvanı: <span class="variable">{{ABONE_ADI_SOYADI}}</span></p>
+            <p>Tarih: <span class="variable">{{SOZLESME_TARIH}}</span></p>
+            <p>Sözleşme'nin Yapıldığı Yer: <span class="variable">{{SOZLESME_YERI}}</span></p>
+            <br><br>
+            <p>İmza: _______________________</p>
+        </div>
+        
+        <div class="signature-box">
+            <p><strong>PLATFORM:</strong></p>
+            <p>Unvanı: <span class="variable">{{PLATFORM_UNVAN}}</span></p>
+            <p>Tarih: <span class="variable">{{SOZLESME_TARIH}}</span></p>
+            <br><br><br>
+            <p>İmza / Kaşe: _______________________</p>
+        </div>
+    </div>
+
+    <div class="footer-info">
+        <p>Doküman Kodu: <span class="variable">{{DOKUMAN_KODU}}</span> | Müşteri Hizmetleri: <span class="variable">{{MUSTERI_HIZMETLERI_TEL}}</span> | Web: <span class="variable">{{PLATFORM_WEB_ADRESI}}</span></p>
+    </div>
+
+</body>
+</html>
