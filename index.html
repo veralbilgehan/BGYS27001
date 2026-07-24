@@ -1,112 +1,197 @@
 ﻿<!doctype html>
 <html lang='tr'>
 <head>
-  <meta charset='utf-8'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <title>BGYS27001 · 5 Ajan Paneli</title>
-  <style>
-    :root{
-      --bg1:#f2f6ff; --bg2:#eefcf7; --card:#ffffff; --ink:#1f2937;
-      --muted:#6b7280; --accent:#7C9E0E; --accent2:#0f766e; --line:#e5e7eb;
-    }
-    *{box-sizing:border-box;}
-    body{
-      margin:0; font-family:"Segoe UI",Tahoma,Arial,sans-serif; color:var(--ink);
-      background:radial-gradient(1200px 500px at 15% -10%,#dbeafe 0%,transparent 60%),
-                  radial-gradient(900px 400px at 90% 0%,#dcfce7 0%,transparent 55%),
-                  linear-gradient(160deg,var(--bg1),var(--bg2));
-      min-height:100vh;
-    }
-    .wrap{max-width:1100px;margin:42px auto;padding:0 16px;}
-    .head{padding:26px 24px;border-radius:16px 16px 0 0;
-      background:linear-gradient(90deg,rgba(124,158,14,.12),rgba(15,118,110,.12));
-      border:1px solid var(--line);border-bottom:none;}
-    h1{margin:0;font-size:28px;color:var(--accent);}
-    .meta{margin-top:8px;color:var(--muted);font-size:14px;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;
-      padding:24px;border:1px solid var(--line);border-top:none;border-radius:0 0 16px 16px;
-      background:var(--card);box-shadow:0 12px 40px rgba(15,23,42,.08);}
-    .aj{
-      border:1px solid var(--line);border-radius:14px;padding:18px;
-      background:#fbfdff;transition:.15s;position:relative;overflow:hidden;
-    }
-    .aj::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent);}
-    .aj.cross::before{background:var(--accent2);}
-    .aj:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,23,42,.1);}
-    .badge{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--accent);
-      padding:3px 9px;border-radius:999px;margin-bottom:8px;}
-    .aj.cross .badge{background:var(--accent2);}
-    .aj h2{margin:0 0 6px;font-size:18px;}
-    .aj p{margin:0 0 12px;color:var(--muted);font-size:13px;min-height:38px;}
-    .cnt{font-size:13px;color:var(--ink);margin-bottom:12px;}
-    .cnt b{color:var(--accent);}
-    .aj a.btn{
-      display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;
-      padding:9px 14px;border-radius:10px;font-size:14px;
-    }
-    .aj.cross a.btn{background:var(--accent2);}
-    .aj a.btn:hover{opacity:.9;}
-    .foot{padding:12px 16px;color:var(--muted);font-size:13px;text-align:center;}
-  </style>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>BGYS Yönetim Paneli — Politikalar</title>
+<style>
+  :root{
+    --navy:#0f1e3d; --navy2:#16264d; --accent:#2563eb; --accent2:#7C9E0E;
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f3f5f9; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg);}
+  .app{display:flex;min-height:100vh;}
+  /* Sol menü */
+  .side{width:248px;background:var(--navy);color:#cdd6e6;display:flex;flex-direction:column;flex-shrink:0;}
+  .side .brand{padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .side .brand h1{margin:0;font-size:17px;color:#fff;display:flex;align-items:center;gap:8px;}
+  .side .brand .lock{font-size:18px;}
+  .side .brand .desc{font-size:11px;color:#8da0c0;margin-top:6px;line-height:1.4;}
+  .side .grp{padding:14px 12px 4px;font-size:11px;letter-spacing:.08em;color:#6b7fa3;text-transform:uppercase;}
+  .side a.item{display:flex;align-items:center;gap:10px;padding:9px 16px;color:#cdd6e6;text-decoration:none;font-size:13.5px;border-left:3px solid transparent;}
+  .side a.item:hover{background:var(--navy2);color:#fff;}
+  .side a.item.active{background:var(--navy2);color:#fff;border-left-color:var(--accent);}
+  .side .foot{margin-top:auto;padding:10px 16px;font-size:11px;color:#6b7fa3;background:#0a1733;border-top:1px solid rgba(255,255,255,.06);}
+  /* İçerik */
+  .main{flex:1;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:12px;padding:14px 22px;background:var(--card);border-bottom:1px solid var(--line);}
+  .topbar h2{margin:0;font-size:20px;}
+  .topbar .sub{color:var(--muted);font-size:13px;margin-top:2px;}
+  .topbar .spacer{flex:1;}
+  .btn{border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;color:#fff;}
+  .btn.blue{background:var(--accent);}
+  .btn.green{background:#16a34a;}
+  .btn.orange{background:#ea580c;}
+  .btn.ghost{background:#fff;color:#374151;border:1px solid #d1d5db;}
+  .bell{background:#fff;color:#374151;border:1px solid #d1d5db;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:13px;}
+  .content{padding:22px;flex:1;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 16px rgba(15,30,61,.05);overflow:hidden;}
+  .card .chead{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .card .chead h3{margin:0;font-size:16px;}
+  .search{flex:1;min-width:180px;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;}
+  th{background:#f8fafc;font-weight:600;color:#374151;font-size:12px;}
+  tr:hover td{background:#fafbfd;}
+  .kod{font-weight:700;color:var(--accent);}
+  .dash{color:#9ca3af;}
+  .act{display:flex;gap:6px;}
+  .act a,.act button{border:none;border-radius:7px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;color:#fff;}
+  .act .view{background:var(--accent);}
+  .act .edit{background:#0ea5e9;}
+  .act .del{background:#dc2626;}
+  .status{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;background:#dcfce7;color:#166534;}
+  /* Görüntüleme katmanı */
+  .viewer{display:none;position:fixed;inset:0;background:rgba(15,30,61,.55);z-index:50;}
+  .viewer .box{position:absolute;inset:40px;background:#fff;border-radius:12px;display:flex;flex-direction:column;overflow:hidden;}
+  .viewer .vhead{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);}
+  .viewer .vhead h3{margin:0;flex:1;font-size:15px;}
+  .viewer iframe{flex:1;border:none;width:100%;}
+  .viewer .close{background:#dc2626;color:#fff;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;}
+</style>
 </head>
 <body>
-  <div class='wrap'>
-    <div class='head'>
-      <h1>BGYS27001 · 5 Ajan Paneli</h1>
-      <div class='meta'>ISO/IEC 27001:2022 Bilgi Güvenliği Yönetim Sistemi — Otomatik Dokümantasyon</div>
+<div class='app'>
+  <!-- SOL MENÜ -->
+  <nav class='side'>
+    <div class='brand'>
+      <h1><span class='lock'>&#128274;</span> BGYS Paneli</h1>
+      <div class='desc'>ISO/IEC 27001:2022 — Bilgi Güvenliği Yönetim Sistemi hazırlık ve izleme platformu.</div>
     </div>
-    <div class='grid'>
+    <div class='grp'>Yönetim</div>
+    <a class='item' href='#'>Genel Durum</a>
+    <a class='item' href='firma_bilgileri.html' target='_blank'>Kuruluş Bilgileri</a>
+    <div class='grp'>Dokümanlar</div>
+    <a class='item active' href='index.html'>Politikalar</a>
+    <a class='item' href='DOKUMANLAR/00-PROSEDÜRLER/'>Prosedürler</a>
+    <a class='item' href='DOKUMANLAR/00-SOZLESMELER/'>Sözleşmeler</a>
+    <a class='item' href='DOKUMANLAR/00-RISK-VE-SOA/'>Doküman Merkezi</a>
+    <div class='grp'>SOA</div>
+    <a class='item' href='DOKUMANLAR/00-RISK-VE-SOA/karsilastir_rapor.html'>Uyg. Bildirgesi</a>
+    <div class='grp'>Risk &amp; Varlık</div>
+    <a class='item' href='#'>Varlık Yönetimi</a>
+    <a class='item' href='#'>Sınıflandırma</a>
+    <a class='item' href='DOKUMANLAR/00-RISK-VE-SOA/'>Risk Analizi</a>
+    <a class='item' href='#'>Risk İşleme</a>
+    <div class='grp'>Kontroller</div>
+    <a class='item' href='#'>Kontrol Kütüphanesi</a>
+    <a class='item' href='DOKUMANLAR/00-PROSEDÜRLER/'>Eğitim ve Farkındalık</a>
+    <a class='item' href='#'>İç Denetim</a>
+    <div class='foot'>Kayıt klasörü:<br>C:\Users\bilge\OneDrive\Belgeler\merged-project\TELKOMISO27001</div>
+  </nav>
 
-      <div class='aj'>
-        <span class='badge'>AJAN 1</span>
-        <h2>Firma Bilgileri</h2>
-        <p>Tüm belgelerin beslendiği merkezi firma formu (single source of truth).</p>
-        <div class='cnt'>Form: 26 alan · localStorage</div>
-        <a class='btn' href='firma_bilgileri.html'>Formu Aç &rarr;</a>
+  <!-- İÇERİK -->
+  <div class='main'>
+    <div class='topbar'>
+      <div>
+        <h2>Politika Listesi</h2>
+        <div class='sub'>BGYS politika belgelerinin hazırlık ve görüntüleme özeti (HTML önizleme).</div>
       </div>
-
-      <div class='aj'>
-        <span class='badge'>AJAN 2</span>
-        <h2>Politikalar</h2>
-        <p>9 adet ISO 27001 politika dokümanı (turuncu 7C9E0E tasarım).</p>
-        <div class='cnt'><b>9</b> / 9 docx hazır</div>
-        <a class='btn' href='DOKUMANLAR/00-POLİTİKALAR/'>Klasörü Aç &rarr;</a>
-      </div>
-
-      <div class='aj'>
-        <span class='badge'>AJAN 3</span>
-        <h2>Prosedürler</h2>
-        <p>20 adet ISS prosedürü (BG.PRS.01–20), gerçek içerikli.</p>
-        <div class='cnt'><b>20</b> / 20 docx hazır</div>
-        <a class='btn' href='DOKUMANLAR/00-PROSEDÜRLER/'>Klasörü Aç &rarr;</a>
-      </div>
-
-      <div class='aj'>
-        <span class='badge'>AJAN 4</span>
-        <h2>Risk + SoA</h2>
-        <p>Risk Analizi ve Uygulanabilirlik Bildirgesi (93 kontrol, A.5.1–A.8.34).</p>
-        <div class='cnt'><b>2</b> / 2 docx hazır</div>
-        <a class='btn' href='DOKUMANLAR/00-RISK-VE-SOA/'>Klasörü Aç &rarr;</a>
-      </div>
-
-      <div class='aj'>
-        <span class='badge'>AJAN 5</span>
-        <h2>Sözleşmeler</h2>
-        <p>5 ISO 27001 + KVKK uyumlu sözleşme şablonu (NDA, iş, uzaktan, taahhütname).</p>
-        <div class='cnt'><b>5</b> / 5 docx hazır</div>
-        <a class='btn' href='DOKUMANLAR/00-SOZLESMELER/'>Klasörü Aç &rarr;</a>
-      </div>
-
-      <div class='aj cross'>
-        <span class='badge'>AJAN 4.5</span>
-        <h2>Çapraz Kontrol</h2>
-        <p>SoA kontrollerinin politika/prosedürlerde karşılanma doğrulaması.</p>
-        <div class='cnt'>Metin Eşleşmesi Yok: <b>0</b></div>
-        <a class='btn' href='DOKUMANLAR/00-RISK-VE-SOA/karsilastir_rapor.html'>Raporu Aç &rarr;</a>
-      </div>
-
+      <div class='spacer'></div>
+      <button class='bell'>&#128276; Bildirimler</button>
+      <button class='btn blue' onclick="alert('Yeni politika şablonu uret_protokoller.py ile olusturulur.')">+ Yeni Kayıt</button>
     </div>
-    <div class='foot'>Tüm ajani tek komutla üret: <code>uret_hepsi.py</code> · Firma değişkenleri: <code>enjekte_firma.py</code></div>
+
+    <div class='content'>
+      <div class='card'>
+        <div class='chead'>
+          <h3>Tüm Politikalar</h3>
+          <input id='search' class='search' placeholder='Politika ara...' oninput='filtre()'>
+          <button class='btn blue' onclick="alert('Yeni politika: uret_protokoller.py ile 9 politikaya eklenir.')">+ Yeni Politika</button>
+          <button class='btn green' onclick='csvKaydet()'>&#128190; CSV Kaydet</button>
+          <button class='btn orange' onclick='window.print()'>&#128424; Yazdır</button>
+        </div>
+        <table id='tbl'>
+          <thead><tr>
+            <th>KOD</th><th>BELGE ADİ</th><th>KAPSAM</th><th>REVİZYON</th>
+            <th>DURUM</th><th>GÜNCELLEME</th><th>İŞLEMLER</th>
+          </tr></thead>
+          <tbody id='tbody'></tbody>
+        </table>
+      </div>
+    </div>
   </div>
+</div>
+
+<!-- GÖRÜNTÜLEME KATMANI -->
+<div class='viewer' id='viewer'>
+  <div class='box'>
+    <div class='vhead'>
+      <h3 id='vtitle'>Belge Önizleme</h3>
+      <button class='close' onclick='viewerKapat()'>Kapat ✕</button>
+    </div>
+    <iframe id='vframe' src='about:blank'></iframe>
+  </div>
+</div>
+
+<script>
+// Politika verileri: backend (uret_protokoller.py) uretir; burada onizleme HTML'lerine baglanir
+const POL = [
+  {kod:'BG.PLT.01', ad:'Bilgi Güvenliği Politikası',        kapsam:'Tüm kurum',        rev:'v1.0',  html:'DOKUMANLAR/_onizleme/00-POLİTİKALAR/01_Bilgi_Guvenligi_Politikasi.html'},
+  {kod:'BG.PLT.02', ad:'Erişim Kontrolü Politikası',         kapsam:'Sistem ve ağ',     rev:'v1.0',  html:'DOKUMANLAR/_onizleme/00-POLİTİKALAR/02_Erisim_Kontrol_Politikasi.html'},
+  {kod:'BG.PLT.03', ad:'Varlık Yönetimi Politikası',         kapsam:'Bilgi varlıkları', rev:'v1.0',  html:'DOKUMANLAR/_onizleme/00-POLİTİKALAR/03_Varlik_Yonetimi_Politikasi.html'},
+  {kod:'BG.PLT.04', ad:'İnsan Kaynakları Güvenliği Politikası',kapsam:'Personel',       rev:'v1.0',  html:'DOKUMANLAR/_onizleme/00-POLİTİKALAR/04_Insan_Kaynaklari_Guvenligi_Politikasi.html'},
+  {kod:'BG.PLT.05', ad:'Fiziksel Güvenlik Politikası',        kapsam:'Tesis ve donanım',rev:'v1.0',  html:'DOKUMANLAR/_onizleme/00-POLİTİKALAR/05_Fiziksel_Guvenlik_Politikasi.html'},
+  {kod:'BG.PLT.06', ad:'Bilgi Güvenliği Olay Yönetimi Politikası',kapsam:'Olay müdahale',rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-POLİTİKALAR/06_Bilgi_Guvenligi_Olay_Yonetimi_Politikasi.html'},
+  {kod:'BG.PLT.07', ad:'İş Sürekliliği Politikası',          kapsam:'BCP/DRP',         rev:'v1.0',  html:'DOKUMANLAR/_onizleme/00-POLİTİKALAR/07_Is_Surekliligi_Politikasi.html'},
+  {kod:'BG.PLT.08', ad:'Uyum Politikası',                     kapsam:'Yasal/KVKK',      rev:'v1.0',  html:'DOKUMANLAR/_onizleme/00-POLİTİKALAR/08_Uyum_Politikasi.html'},
+  {kod:'BG.PLT.09', ad:'Tedarikçi İlişkileri Güvenliği Politikası',kapsam:'Tedarik zinciri',rev:'v1.0',html:'DOKUMANLAR/_onizleme/00-POLİTİKALAR/09_Tedarikci_Iliskileri_Guvenligi_Politikasi.html'},
+];
+
+function guncel(kod){
+  // dosya degisim tarihine gore (sabit demo)
+  const map={'BG.PLT.01':'22.04.2026','BG.PLT.02':'22.04.2026','BG.PLT.03':'22.04.2026','BG.PLT.04':'22.04.2026','BG.PLT.05':'22.04.2026','BG.PLT.06':'22.04.2026','BG.PLT.07':'22.04.2026','BG.PLT.08':'22.04.2026','BG.PLT.09':'24.07.2026'};
+  return map[kod]||'-';
+}
+function render(list){
+  const tb=document.getElementById('tbody');
+  tb.innerHTML='';
+  list.forEach(p=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class='kod'>${p.kod}</td>
+      <td>${p.ad}</td>
+      <td>${p.kapsam}</td>
+      <td>${p.rev}</td>
+      <td><span class='status'>Hazır</span></td>
+      <td>${guncel(p.kod)}</td>
+      <td><div class='act'>
+        <button class='view' onclick='goruntule("${p.html}","${p.ad}")'>&#128065; Görüntüle</button>
+        <button class='edit' onclick='alert("Düzenle: ${p.kod}")'>&#9998; Düzenle</button>
+        <button class='del' onclick='sil("${p.kod}")'>&#128465; Sil</button>
+      </div></td>`;
+    tb.appendChild(tr);
+  });
+  document.getElementById('say').textContent=list.length;
+}
+function filtre(){
+  const q=document.getElementById('search').value.toLowerCase();
+  render(POL.filter(p=>p.ad.toLowerCase().includes(q)||p.kod.toLowerCase().includes(q)));
+}
+function goruntule(html,ad){
+  document.getElementById('vtitle').textContent=ad+' — Önizleme';
+  document.getElementById('vframe').src=html;
+  document.getElementById('viewer').style.display='block';
+}
+function viewerKapat(){document.getElementById('viewer').style.display='none';document.getElementById('vframe').src='about:blank';}
+function sil(kod){if(confirm(kod+' silinsin mi? (demo — gerçek silme yapılmaz)'))alert(kod+' işaretlendi.');}
+function csvKaydet(){
+  let csv='KOD;BELGE ADİ;KAPSAM;REVİZYON;DURUM;GÜNCELLEME\n';
+  POL.forEach(p=>{csv+=`${p.kod};${p.ad};${p.kapsam};${p.rev};Hazır;${guncel(p.kod)}\n`;});
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='politika_listesi.csv';a.click();
+}
+render(POL);
+</script>
 </body>
 </html>

@@ -19,6 +19,9 @@ prosedur_data.js
 uret_prosedurler.html
 uret_risk_soa.html
 
+# Otomatik uretilen docx->HTML onizlemeler (onizleme_uret.py ciktisi, yeniden uretilebilir)
+DOKUMANLAR/_onizleme/
+
 # OS
 Thumbs.db
 Desktop.ini
