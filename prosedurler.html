@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang='tr'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>BGYS Yönetim Paneli — Prosedürler</title>
+<style>
+  :root{
+    --navy:#0f1e3d; --navy2:#16264d; --accent:#2563eb; --accent2:#7C9E0E;
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f3f5f9; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg);}
+  .app{display:flex;min-height:100vh;}
+  .side{width:248px;background:var(--navy);color:#cdd6e6;display:flex;flex-direction:column;flex-shrink:0;}
+  .side .brand{padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .side .brand h1{margin:0;font-size:17px;color:#fff;display:flex;align-items:center;gap:8px;}
+  .side .brand .lock{font-size:18px;}
+  .side .brand .desc{font-size:11px;color:#8da0c0;margin-top:6px;line-height:1.4;}
+  .side .grp{padding:14px 12px 4px;font-size:11px;letter-spacing:.08em;color:#6b7fa3;text-transform:uppercase;}
+  .side a.item{display:flex;align-items:center;gap:10px;padding:9px 16px;color:#cdd6e6;text-decoration:none;font-size:13.5px;border-left:3px solid transparent;}
+  .side a.item:hover{background:var(--navy2);color:#fff;}
+  .side a.item.active{background:var(--navy2);color:#fff;border-left-color:var(--accent);}
+  .side .foot{margin-top:auto;padding:10px 16px;font-size:11px;color:#6b7fa3;background:#0a1733;border-top:1px solid rgba(255,255,255,.06);}
+  .main{flex:1;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:12px;padding:14px 22px;background:var(--card);border-bottom:1px solid var(--line);}
+  .topbar h2{margin:0;font-size:20px;}
+  .topbar .sub{color:var(--muted);font-size:13px;margin-top:2px;}
+  .topbar .spacer{flex:1;}
+  .btn{border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;color:#fff;}
+  .btn.blue{background:var(--accent);}
+  .btn.green{background:#16a34a;}
+  .btn.orange{background:#ea580c;}
+  .bell{background:#fff;color:#374151;border:1px solid #d1d5db;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:13px;}
+  .content{padding:22px;flex:1;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 16px rgba(15,30,61,.05);overflow:hidden;}
+  .card .chead{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .card .chead h3{margin:0;font-size:16px;}
+  .search{flex:1;min-width:180px;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;}
+  th{background:#f8fafc;font-weight:600;color:#374151;font-size:12px;}
+  tr:hover td{background:#fafbfd;}
+  .kod{font-weight:700;color:var(--accent);}
+  .act{display:flex;gap:6px;}
+  .act button{border:none;border-radius:7px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer;color:#fff;}
+  .act .view{background:var(--accent);}
+  .act .edit{background:#0ea5e9;}
+  .act .del{background:#dc2626;}
+  .status{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;background:#dcfce7;color:#166534;}
+  .viewer{display:none;position:fixed;inset:0;background:rgba(15,30,61,.55);z-index:50;}
+  .viewer .box{position:absolute;inset:40px;background:#fff;border-radius:12px;display:flex;flex-direction:column;overflow:hidden;}
+  .viewer .vhead{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);}
+  .viewer .vhead h3{margin:0;flex:1;font-size:15px;}
+  .viewer iframe{flex:1;border:none;width:100%;}
+  .viewer .close{background:#dc2626;color:#fff;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;}
+</style>
+</head>
+<body>
+<div class='app'>
+  <nav class='side'>
+    <div class='brand'>
+      <h1><span class='lock'>&#128274;</span> BGYS Paneli</h1>
+      <div class='desc'>ISO/IEC 27001:2022 — Bilgi Güvenliği Yönetim Sistemi hazırlık ve izleme platformu.</div>
+    </div>
+    <div class='grp'>Yönetim</div>
+    <a class='item' href='index.html'>Genel Durum</a>
+    <a class='item' href='organizasyon.html' target='_blank'>Kuruluş Bilgileri</a>
+      <a class='item' href='firma_bilgileri.html' target='_blank'>Firma Bilgileri (Form)</a>
+    <div class='grp'>Dokümanlar</div>
+    <a class='item' href='index.html'>Politikalar</a>
+    <a class='item active' href='prosedurler.html'>Prosedürler</a>
+    <a class='item' href='sozlesmeler.html'>Sözleşmeler</a>
+    <a class='item' href='risk_soa.html'>Doküman Merkezi</a>
+    <div class='grp'>SOA</div>
+    <a class='item' href='risk_soa.htmlkarsilastir_rapor.html'>Uyg. Bildirgesi</a>
+    <div class='grp'>Risk &amp; Varlık</div>
+    <a class='item' href='#'>Varlık Yönetimi</a>
+    <a class='item' href='#'>Sınıflandırma</a>
+    <a class='item' href='risk_soa.html'>Risk Analizi</a>
+    <a class='item' href='rol_yetki.html'>Rol/Yetki</a>
+    <a class='item' href='risk_soa_ozet.html'>Risk+SoA Özet</a>
+    <a class='item' href='#'>Risk İşleme</a>
+    <div class='grp'>Kontroller</div>
+    <a class='item' href='#'>Kontrol Kütüphanesi</a>
+    <a class='item' href='#'>Eğitim ve Farkındalık</a>
+    <a class='item' href='#'>İç Denetim</a>
+    <div class='foot'>Kayıt klasörü:<br>C:\Users\bilge\OneDrive\Belgeler\merged-project\TELKOMISO27001</div>
+  </nav>
+
+  <div class='main'>
+    <div class='topbar'>
+      <div>
+        <h2>Prosedür Listesi</h2>
+        <div class='sub'>BGYS prosedür belgelerinin hazırlık ve görüntüleme özeti (HTML önizleme).</div>
+      </div>
+      <div class='spacer'></div>
+      <button class='bell'>&#128276; Bildirimler</button>
+      <button class='btn blue' onclick="alert('Yeni prosedur: uret_prosedurler.py ile olusturulur.')">+ Yeni Kayıt</button>
+    </div>
+
+    <div class='content'>
+      <div class='card'>
+        <div class='chead'>
+          <h3>Tüm Prosedürler (<span id='say'>0</span>)</h3>
+          <input id='search' class='search' placeholder='Prosedür ara...' oninput='filtre()'>
+          <button class='btn blue' onclick="alert('Yeni prosedur: uret_prosedurler.py ile 20 prosedure eklenir.')">+ Yeni Prosedür</button>
+          <button class='btn green' onclick='csvKaydet()'>&#128190; CSV Kaydet</button>
+          <button class='btn orange' onclick='window.print()'>&#128424; Yazdır</button>
+        </div>
+        <table id='tbl'>
+          <thead><tr>
+            <th>KOD</th><th>BELGE ADİ</th><th>KAPSAM</th><th>REVİZYON</th>
+            <th>DURUM</th><th>GÜNCELLEME</th><th>İŞLEMLER</th>
+          </tr></thead>
+          <tbody id='tbody'></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='viewer' id='viewer'>
+  <div class='box'>
+    <div class='vhead'>
+      <h3 id='vtitle'>Belge Önizleme</h3>
+      <button class='close' onclick='viewerKapat()'>Kapat ✕</button>
+    </div>
+    <iframe id='vframe' src='about:blank'></iframe>
+  </div>
+</div>
+
+<!-- DÜZENLE MODAL -->
+<div class='editor' id='editor'>
+  <div class='ebox'>
+    <div class='ehead'>
+      <h3 id='etitle'>Kayıt Düzenle</h3>
+      <button class='close' onclick='editorKapat()'>Kapat ✕</button>
+    </div>
+    <div class='ebody'>
+      <label>KOD</label>
+      <input id='eKod' type='text' disabled>
+      <label>Belge Adı</label>
+      <textarea id='eAd' rows='2'></textarea>
+      <label>Kapsam</label>
+      <input id='eKapsam' type='text'>
+      <label>Revizyon</label>
+      <input id='eRev' type='text'>
+      <label>Durum</label>
+      <input id='eDurum' type='text'>
+    </div>
+    <div class='efoot'>
+      <button class='btn green' onclick='kaydet()'>&#128427; Kaydet</button>
+      <button class='btn orange' onclick='editorKapat()'>&#10005; Vazgeç</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PRE = [
+  {kod:'BG.PRS.01', ad:'Şifre Yönetimi Prosedürü',            kapsam:'Erişim',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/01_Sifre_Yonetimi_Proseduru.html'},
+  {kod:'BG.PRS.02', ad:'Kullanıcı Erişim Yönetimi Prosedürü', kapsam:'Erişim',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/02_Kullanici_Erisim_Yonetimi_Proseduru.html'},
+  {kod:'BG.PRS.03', ad:'Varlık Envanteri Yönetim Prosedürü',  kapsam:'Varlık',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/03_Varlik_Envanteri_Yonetim_Proseduru.html'},
+  {kod:'BG.PRS.04', ad:'Varlık Sınıflandırma Prosedürü',       kapsam:'Varlık',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/04_Varlik_Siniflandirma_Proseduru.html'},
+  {kod:'BG.PRS.05', ad:'Personel İşe Alım ve Çıkış Prosedürü',kapsam:'İK',             rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/05_Personel_Ise_Alim_ve_Cikis_Proseduru.html'},
+  {kod:'BG.PRS.06', ad:'Fiziksel Güvenlik Prosedürü',          kapsam:'Tesis',          rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/06_Fiziksel_Guvenlik_Proseduru.html'},
+  {kod:'BG.PRS.07', ad:'Güvenlik Olayı Müdahale Prosedürü',    kapsam:'Olay',           rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/07_Guvenlik_Olayi_Mudahale_Proseduru.html'},
+  {kod:'BG.PRS.08', ad:'Yedekleme ve Kurtarma Prosedürü',     kapsam:'BCP',            rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/08_Yedekleme_ve_Kurtarma_Proseduru.html'},
+  {kod:'BG.PRS.09', ad:'Yasal Uyum Kontrol Prosedürü',        kapsam:'Uyum',           rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/09_Yasal_Uyum_Kontrol_Proseduru.html'},
+  {kod:'BG.PRS.10', ad:'Tedarikçi Değerlendirme Prosedürü',   kapsam:'Tedarik',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/10_Tedarikci_Degerlendirme_Proseduru.html'},
+  {kod:'BG.PRS.11', ad:'Risk Değerlendirme Prosedürü',        kapsam:'Risk',           rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/11_Risk_Degerlendirme_Proseduru.html'},
+  {kod:'BG.PRS.12', ad:'Politika Gözden Geçirme Prosedürü',   kapsam:'Yönetişim',       rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/12_Politika_Gozden_Gecirme_Proseduru.html'},
+  {kod:'BG.PRS.13', ad:'Eğitim ve Farkındalık Prosedürü',      kapsam:'İK',             rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/13_Egitim_ve_Farkindalik_Proseduru.html'},
+  {kod:'BG.PRS.14', ad:'İç Denetim Prosedürü',                kapsam:'Denetim',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/14_Ic_Denetim_Proseduru.html'},
+  {kod:'BG.PRS.15', ad:'DFI (Düzeltici Faaliyet) Prosedürü',  kapsam:'Süreç iyileştirme',rev:'v1.0',html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/15_DFI_(Duzeltici_Faaliyet)_Proseduru.html'},
+  {kod:'BG.PRS.16', ad:'Ağ Güvenliği Yönetim Prosedürü',      kapsam:'Ağ',             rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/16_Ag_Guvenligi_Yonetim_Proseduru.html'},
+  {kod:'BG.PRS.17', ad:'Uzaktan Çalışma Güvenliği Prosedürü', kapsam:'Uzaktan',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/17_Uzaktan_Calisma_Guvenligi_Proseduru.html'},
+  {kod:'BG.PRS.18', ad:'Bilgi Varlığı İmha Prosedürü',         kapsam:'Yaşam döngüsü',  rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/18_Bilgi_Varligi_Imha_Proseduru.html'},
+  {kod:'BG.PRS.19', ad:'Yazılım Lisans Yönetim Prosedürü',    kapsam:'Yazılım',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/19_Yazilim_Lisans_Yonetim_Proseduru.html'},
+  {kod:'BG.PRS.20', ad:'Log Yönetimi ve İzleme Prosedürü',    kapsam:'İzleme',          rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/20_Log_Yonetimi_ve_Izleme_Proseduru.html'},
+];
+function guncel(){return '24.07.2026';}
+function render(list){
+  const tb=document.getElementById('tbody'); tb.innerHTML='';
+  list.forEach(p=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class='kod'>${p.kod}</td><td>${p.ad}</td><td>${p.kapsam}</td>
+      <td>${p.rev}</td><td><span class='status'>Hazır</span></td><td>${guncel()}</td>
+      <td><div class='act'>
+        <button class='view' onclick='goruntule("${p.html}","${p.ad}")'>&#128065; Görüntüle</button>
+        <button class='edit' onclick='duzenle("${p.kod}")'>&#9998; Düzenle</button>
+        <button class='del' onclick='sil("${p.kod}")'>&#128465; Sil</button>
+      </div></td>`;
+    tb.appendChild(tr);
+  });
+  document.getElementById('say').textContent=list.length;
+}
+function filtre(){const q=document.getElementById('search').value.toLowerCase();
+  render(PRE.filter(p=>p.ad.toLowerCase().includes(q)||p.kod.toLowerCase().includes(q)));}
+function goruntule(html,ad){document.getElementById('vtitle').textContent=ad+' — Önizleme';
+  document.getElementById('vframe').src=html;document.getElementById('viewer').style.display='block';}
+function viewerKapat(){document.getElementById('viewer').style.display='none';document.getElementById('vframe').src='about:blank';}
+function sil(kod){if(confirm(kod+' silinsin mi? (demo)'))alert(kod+' işaretlendi.');}
+// === DÜZENLE MODAL ===
+function duzenle(kod){
+  const p = PRE.find(x=>x.kod===kod); if(!p) return;
+  document.getElementById('etitle').textContent = 'Düzenle: '+kod;
+  document.getElementById('eKod').value = p.kod;
+  document.getElementById('eAd').value = p.ad;
+  document.getElementById('eKapsam').value = p.kapsam;
+  document.getElementById('eRev').value = p.rev;
+  document.getElementById('eDurum').value = 'Hazır';
+  document.getElementById('editor').classList.add('show');
+}
+function editorKapat(){document.getElementById('editor').classList.remove('show');}
+function kaydet(){
+  const kod = document.getElementById('eKod').value;
+  const p = PRE.find(x=>x.kod===kod); if(!p){editorKapat();return;}
+  p.ad = document.getElementById('eAd').value;
+  p.kapsam = document.getElementById('eKapsam').value;
+  p.rev = document.getElementById('eRev').value;
+  try { localStorage.setItem('bgys_prosedur_'+kod, JSON.stringify({ad:p.ad,kapsam:p.kapsam,rev:p.rev})); } catch(e){}
+  render(PRE);
+  editorKapat();
+  alert(kod+' güncellendi (tarayıcıda kaydedildi).');
+}
+(function(){
+  PRE.forEach(p=>{
+    try{
+      const s = localStorage.getItem('bgys_prosedur_'+p.kod);
+      if(s){ const d=JSON.parse(s); p.ad=d.ad; p.kapsam=d.kapsam; p.rev=d.rev; }
+    }catch(e){}
+  });
+})();
+function csvKaydet(){let csv='KOD;BELGE ADİ;KAPSAM;REVİZYON;DURUM;GÜNCELLEME\
+';
+  PRE.forEach(p=>{csv+=`${p.kod};${p.ad};${p.kapsam};${p.rev};Hazır;${guncel()}
+`;});
+  const b=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='prosedur_listesi.csv';a.click();}
+render(PRE);
+</script>
+</body>
+</html>

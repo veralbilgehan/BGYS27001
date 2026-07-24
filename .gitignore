@@ -1,0 +1,28 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Hermes agent internals
+.hermes/
+
+# Geçici / editor artefaktleri
+nul
+unu.txt
+index.atomic-segment-*
+protokol_preview.html
+IDEA.md
+
+# Gecici onizleme HTML/JS kalintilari (docx_onizleme.py ciktisi)
+preview_*.html
+prosedur_data.js
+uret_prosedurler.html
+uret_risk_soa.html
+
+# Otomatik uretilen docx->HTML onizlemeler (onizleme_uret.py ciktisi, yeniden uretilebilir)
+DOKUMANLAR/_onizleme/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
