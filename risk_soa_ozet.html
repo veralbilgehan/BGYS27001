@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang='tr'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>BGYS Yönetim Paneli — Risk + SoA Özet Raporu</title>
+<style>
+  :root{
+    --navy:#0f1e3d; --navy2:#16264d; --accent:#2563eb; --accent2:#7C9E0E;
+    --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f3f5f9; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg);}
+  .app{display:flex;min-height:100vh;}
+  .side{width:248px;background:var(--navy);color:#cdd6e6;display:flex;flex-direction:column;flex-shrink:0;}
+  .side .brand{padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .side .brand h1{margin:0;font-size:17px;color:#fff;display:flex;align-items:center;gap:8px;}
+  .side .brand .lock{font-size:18px;}
+  .side .brand .desc{font-size:11px;color:#8da0c0;margin-top:6px;line-height:1.4;}
+  .side .grp{padding:14px 12px 4px;font-size:11px;letter-spacing:.08em;color:#6b7fa3;text-transform:uppercase;}
+  .side a.item{display:flex;align-items:center;gap:10px;padding:9px 16px;color:#cdd6e6;text-decoration:none;font-size:13.5px;border-left:3px solid transparent;}
+  .side a.item:hover{background:var(--navy2);color:#fff;}
+  .side a.item.active{background:var(--navy2);color:#fff;border-left-color:var(--accent);}
+  .side .foot{margin-top:auto;padding:10px 16px;font-size:11px;color:#6b7fa3;background:#0a1733;border-top:1px solid rgba(255,255,255,.06);}
+  .main{flex:1;display:flex;flex-direction:column;}
+  .topbar{display:flex;align-items:center;gap:12px;padding:14px 22px;background:var(--card);border-bottom:1px solid var(--line);}
+  .topbar h2{margin:0;font-size:20px;}
+  .topbar .sub{color:var(--muted);font-size:13px;margin-top:2px;}
+  .topbar .spacer{flex:1;}
+  .btn{border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;color:#fff;}
+  .btn.blue{background:var(--accent);}
+  .btn.green{background:#16a34a;}
+  .btn.orange{background:#ea580c;}
+  .bell{background:#fff;color:#374151;border:1px solid #d1d5db;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:13px;}
+  .content{padding:22px;flex:1;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 16px rgba(15,30,61,.05);overflow:hidden;margin-bottom:18px;}
+  .card .chead{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .card .chead h3{margin:0;font-size:16px;}
+  .kpis{display:flex;gap:14px;padding:16px;flex-wrap:wrap;}
+  .kpi{flex:1;min-width:150px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center;}
+  .kpi .n{font-size:28px;font-weight:800;color:var(--accent);}
+  .kpi .l{font-size:12px;color:var(--muted);margin-top:4px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{padding:11px 14px;border-bottom:1px solid var(--line);text-align:left;}
+  th{background:#f8fafc;font-weight:600;color:#374151;font-size:12px;}
+  tr:hover td{background:#fafbfd;}
+  .kod{font-weight:700;color:var(--accent);}
+  .status{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;background:#dcfce7;color:#166534;}
+  .status.high{background:#fee2e2;color:#991b1b;}
+  .status.mid{background:#fef3c7;color:#92400e;}
+  .viewer{display:none;position:fixed;inset:0;background:rgba(15,30,61,.55);z-index:50;}
+  .viewer .box{position:absolute;inset:40px;background:#fff;border-radius:12px;display:flex;flex-direction:column;overflow:hidden;}
+  .viewer .vhead{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);}
+  .viewer .vhead h3{margin:0;flex:1;font-size:15px;}
+  .viewer iframe{flex:1;border:none;width:100%;}
+  .viewer .close{background:#dc2626;color:#fff;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;}
+</style>
+</head>
+<body>
+<div class='app'>
+  <nav class='side'>
+    <div class='brand'>
+      <h1><span class='lock'>&#128274;</span> BGYS Paneli</h1>
+      <div class='desc'>ISO/IEC 27001:2022 — Bilgi Güvenliği Yönetim Sistemi hazırlık ve izleme platformu.</div>
+    </div>
+    <div class='grp'>Yönetim</div>
+    <a class='item' href='index.html'>Genel Durum</a>
+    <a class='item' href='firma_bilgileri.html' target='_blank'>Kuruluş Bilgileri</a>
+    <div class='grp'>Dokümanlar</div>
+    <a class='item' href='index.html'>Politikalar</a>
+    <a class='item' href='prosedurler.html'>Prosedürler</a>
+    <a class='item' href='sozlesmeler.html'>Sözleşmeler</a>
+    <a class='item active' href='risk_soa.html'>Doküman Merkezi</a>
+    <div class='grp'>SOA</div>
+    <a class='item' href='risk_soa.html'>Uyg. Bildirgesi</a>
+    <div class='grp'>Risk &amp; Varlık</div>
+    <a class='item' href='risk_soa.html'>Risk Analizi</a>
+    <a class='item' href='risk_soa.html'>Varlık Yönetimi</a>
+    <a class='item' href='rol_yetki.html'>Rol/Yetki</a>
+    <div class='grp'>Kontroller</div>
+    <a class='item' href='#'>Kontrol Kütüphanesi</a>
+    <a class='item' href='#'>Eğitim ve Farkındalık</a>
+    <a class='item' href='#'>İç Denetim</a>
+    <div class='foot'>Kayıt klasörü:<br>C:\Users\bilge\OneDrive\Belgeler\merged-project\TELKOMISO27001</div>
+  </nav>
+
+  <div class='main'>
+    <div class='topbar'>
+      <div>
+        <h2>Risk + SoA Özet Raporu</h2>
+        <div class='sub'>İSS İşletmesi BGYS — Risk envanteri, SoA kapsama ve açık kontrol özeti.</div>
+      </div>
+      <div class='spacer'></div>
+      <button class='bell'>&#128276; Bildirimler</button>
+      <button class='btn orange' onclick='window.print()'>&#128424; Yazdır</button>
+    </div>
+
+    <div class='content'>
+      <div class='card'>
+        <div class='chead'><h3>Genel Durum (KPI)</h3></div>
+        <div class='kpis'>
+          <div class='kpi'><div class='n'>9</div><div class='l'>Risk Kaydı</div></div>
+          <div class='kpi'><div class='n'>3</div><div class='l'>Varlık</div></div>
+          <div class='kpi'><div class='n' style='color:#991b1b'>4</div><div class='l'>Yüksek Risk</div></div>
+          <div class='kpi'><div class='n' style='color:#92400e'>5</div><div class='l'>Orta Risk</div></div>
+          <div class='kpi'><div class='n'>93</div><div class='l'>SoA Kontrolü (A.5+A.6+A.7+A.8)</div></div>
+          <div class='kpi'><div class='n' style='color:#16a34a'>%88</div><div class='l'>Uygulanan</div></div>
+        </div>
+      </div>
+
+      <div class='card'>
+        <div class='chead'><h3>Risk Envanteri Özeti</h3></div>
+        <table id='rtbl'>
+          <thead><tr>
+            <th>RİSK ID</th><th>VARLIK</th><th>TEHDİT</th><th>ZAFİYET</th>
+            <th>OL</th><th>ET</th><th>SKOR</th><th>SEVİYE</th><th>DURUM</th>
+          </tr></thead>
+          <tbody id='rbody'></tbody>
+        </table>
+      </div>
+
+      <div class='card'>
+        <div class='chead'><h3>SoA Kapsama Özeti (ISO 27001:2022)</h3></div>
+        <table>
+          <thead><tr><th>KONTROL GRUBU</th><th>SAYI</th><th>UYGULANAN</th><th>KISMİ</th><th>PLANLANAN</th><th>HARİÇ</th></tr></thead>
+          <tbody>
+            <tr><td class='kod'>A.5 Organizasyonel</td><td>37</td><td>33</td><td>2</td><td>1</td><td>1</td></tr>
+            <tr><td class='kod'>A.6 Kişisel</td><td>8</td><td>7</td><td>0</td><td>1</td><td>0</td></tr>
+            <tr><td class='kod'>A.7 Fiziksel</td><td>14</td><td>12</td><td>1</td><td>1</td><td>0</td></tr>
+            <tr><td class='kod'>A.8 Teknolojik</td><td>34</td><td>27</td><td>3</td><td>4</td><td>0</td></tr>
+            <tr style='font-weight:700;background:#f8fafc'><td>TOPLAM</td><td>93</td><td>79</td><td>6</td><td>7</td><td>1</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class='card'>
+        <div class='chead'><h3>Açık Kontroller (Kritik/Yüksek Risk İlişkili)</h3></div>
+        <table>
+          <thead><tr><th>KOD</th><th>KONTROL</th><th>DURUM</th><th>İLGİLİ RİSK</th><th>AKSİYON</th></tr></thead>
+          <tbody>
+            <tr><td class='kod'>A.5.17</td><td>Kimlik doğrulama bilgileri</td><td><span class='status'>Uygulanmaktadır</span></td><td>RSK-001</td><td>İzle (kalan risk: 8)</td></tr>
+            <tr><td class='kod'>A.8.24</td><td>Şifreleme kullanımı</td><td><span class='status mid'>Kısmi</span></td><td>RSK-002</td><td>2026-06-15 e-tamamla</td></tr>
+            <tr><td class='kod'>A.8.13</td><td>Yedekleme</td><td><span class='status'>Uygulanmaktadır</span></td><td>RSK-003</td><td>İzle (kalan risk: 4)</td></tr>
+            <tr><td class='kod'>A.8.14</td><td>Hata toleransı</td><td><span class='status mid'>Kısmi</span></td><td>RSK-005</td><td>2026-07-01 redundant firewall</td></tr>
+            <tr><td class='kod'>A.5.34</td><td>Mahremiyet ve KVKK</td><td><span class='status'>Uygulanmaktadır</span></td><td>RSK-008</td><td>İzle (kalan risk: 15)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='viewer' id='viewer'>
+  <div class='box'>
+    <div class='vhead'>
+      <h3 id='vtitle'>Belge Önizleme</h3>
+      <button class='close' onclick='viewerKapat()'>Kapat ✕</button>
+    </div>
+    <iframe id='vframe' src='about:blank'></iframe>
+  </div>
+</div>
+
+<script>
+const RISK = [
+  {id:'RSK-001', varlik:'VARLK-001 (Müşteri VT Sunucusu)', tehdit:'Yetkisiz erişim', zafiyet:'Zayıf şifre politikası', ol:4, et:5, skor:20, seviye:'Yüksek', durum:'Acil'},
+  {id:'RSK-002', varlik:'VARLK-001', tehdit:'Veri sızıntısı', zafiyet:'Eksik şifreleme', ol:3, et:5, skor:15, seviye:'Yüksek', durum:'Acil'},
+  {id:'RSK-003', varlik:'VARLK-001', tehdit:'Hizmet kesintisi', zafiyet:'Yedekleme eksik', ol:3, et:4, skor:12, seviye:'Orta', durum:'Planli'},
+  {id:'RSK-004', varlik:'VARLK-001', tehdit:'Kötü amaçlı yazılım', zafiyet:'Güncel olmayan AV', ol:4, et:3, skor:12, seviye:'Orta', durum:'Planli'},
+  {id:'RSK-005', varlik:'VARLK-002 (AAA/RADIUS)', tehdit:'Hizmet çökmesi', zafiyet:'Tek nokta arızası', ol:3, et:5, skor:15, seviye:'Yüksek', durum:'Acil'},
+  {id:'RSK-006', varlik:'VARLK-002', tehdit:'MFA atlatma', zafiyet:'Zayıf MFA yapılandırması', ol:2, et:5, skor:10, seviye:'Orta', durum:'Planli'},
+  {id:'RSK-007', varlik:'VARLK-002', tehdit:'Konfigürasyon hatası', zafiyet:'Yedek konfig yok', ol:4, et:3, skor:12, seviye:'Orta', durum:'Planli'},
+  {id:'RSK-008', varlik:'VARLK-003 (Personel Bilgileri)', tehdit:'KVKK ihlali', zafiyet:'Yetersiz erişim kontrolü', ol:3, et:5, skor:15, seviye:'Yüksek', durum:'Acil'},
+  {id:'RSK-009', varlik:'VARLK-003', tehdit:'Veri kaybı', zafiyet:'Yedekleme yok', ol:2, et:4, skor:8, seviye:'Orta', durum:'Planli'},
+];
+function sev(s){
+  if(s==='Yüksek') return `<span class='status high'>${s}</span>`;
+  if(s==='Orta') return `<span class='status mid'>${s}</span>`;
+  return `<span class='status'>${s}</span>`;
+}
+function renderRisk(){
+  const tb=document.getElementById('rbody'); tb.innerHTML='';
+  RISK.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class='kod'>${r.id}</td><td>${r.varlik}</td><td>${r.tehdit}</td><td>${r.zafiyet}</td>
+      <td>${r.ol}</td><td>${r.et}</td><td><strong>${r.skor}</strong></td>
+      <td>${sev(r.seviye)}</td><td><span class='status'>${r.durum}</span></td>`;
+    tb.appendChild(tr);
+  });
+}
+function viewerKapat(){document.getElementById('viewer').style.display='none';document.getElementById('vframe').src='about:blank';}
+renderRisk();
+</script>
+</body>
+</html>

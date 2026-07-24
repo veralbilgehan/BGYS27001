@@ -75,6 +75,8 @@
     <a class='item' href='risk_soa.html'>Uyg. Bildirgesi</a>
     <div class='grp'>Risk &amp; Varlık</div>
     <a class='item' href='risk_soa.html'>Risk Analizi</a>
+    <a class='item' href='rol_yetki.html'>Rol/Yetki</a>
+    <a class='item' href='risk_soa_ozet.html'>Risk+SoA Özet</a>
     <a class='item' href='#'>Risk İşleme</a>
     <div class='grp'>Kontroller</div>
     <a class='item' href='#'>Kontrol Kütüphanesi</a>
@@ -95,7 +97,7 @@
     </div>
 
     <div class='content'>
-      <div class='card'>
+      <div class='card' style='margin-bottom:18px;'>
         <div class='chead'>
           <h3>Tüm Risk &amp; SoA Belgeleri</h3>
           <input id='search' class='search' placeholder='Belge ara...' oninput='filtre()'>
@@ -109,6 +111,27 @@
             <th>DURUM</th><th>GÜNCELLEME</th><th>İŞLEMLER</th>
           </tr></thead>
           <tbody id='tbody'></tbody>
+        </table>
+      </div>
+
+      <div class='card' style='margin-bottom:18px;'>
+        <div class='chead'><h3>Varlık Envanteri (Özet)</h3></div>
+        <table id='varlikTbl'>
+          <thead><tr>
+            <th>VARLIK ID</th><th>AD</th><th>TİP</th><th>SAHİP</th><th>G/B/E</th><th>DURUM</th>
+          </tr></thead>
+          <tbody id='varlikBody'></tbody>
+        </table>
+      </div>
+
+      <div class='card'>
+        <div class='chead'><h3>Risk Envanteri (İSS İşletmesi Örneği)</h3></div>
+        <table id='riskTbl'>
+          <thead><tr>
+            <th>RİSK ID</th><th>VARLIK</th><th>TEHDİT</th><th>ZAFİYET</th>
+            <th>OL</th><th>ET</th><th>SKOR</th><th>SEVİYE</th><th>DURUM</th>
+          </tr></thead>
+          <tbody id='riskBody'></tbody>
         </table>
       </div>
     </div>
@@ -129,9 +152,55 @@
 const RS = [
   {kod:'BG.RSK.01', ad:'Risk Analizi Raporu',                    kapsam:'Risk',  rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-RISK-VE-SOA/01_Risk_Analizi.html'},
   {kod:'BG.SOA.01', ad:'SoA Uygulanabilirlik Bildirgesi',        kapsam:'SoA',   rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-RISK-VE-SOA/02_SoA_Uygulanabilirlik_Bildirgesi.html'},
-  {kod:'BG.SOA.02', ad:'SoA Karşılaştırma Raporu',            kapsam:'SoA',   rev:'v1.0', html:'DOKUMANLAR/00-RISK-VE-SOA/karsilastir_rapor.html'},
+  {kod:'BG.SOA.02', ad:'SoA Karsilastirma Raporu',            kapsam:'SoA',   rev:'v1.0', html:'DOKUMANLAR/00-RISK-VE-SOA/karsilastir_rapor.html'},
 ];
+
+const VARLIKLAR = [
+  {id:'VARLK-001', ad:'Müşteri Veritabani Sunucusu', tip:'Donanim/Veri', sahip:'Sistem Yoneticisi', gbe:'3/3/3', durum:'Aktif'},
+  {id:'VARLK-002', ad:'AAA Servisi (RADIUS)',         tip:'Hizmet',          sahip:'Sistem Yoneticisi', gbe:'3/3/3', durum:'Aktif'},
+  {id:'VARLK-003', ad:'Personel Bilgileri',              tip:'Veri',           sahip:'IK Yoneticisi',     gbe:'3/3/2', durum:'Aktif'},
+];
+
+const RISKLER = [
+  {id:'RSK-001', varlik:'VARLK-001 (Müşteri VT Sunucusu)', tehdit:'Yetkisiz erisim', zafiyet:'Zayif sifre politikasi', ol:4, et:5, skor:20, seviye:'Yuksek', durum:'Acil'},
+  {id:'RSK-002', varlik:'VARLK-001', tehdit:'Veri sizintisi', zafiyet:'Eksik sifreleme', ol:3, et:5, skor:15, seviye:'Yuksek', durum:'Acil'},
+  {id:'RSK-003', varlik:'VARLK-001', tehdit:'Hizmet kesintisi', zafiyet:'Yedekleme eksik', ol:3, et:4, skor:12, seviye:'Orta', durum:'Planli'},
+  {id:'RSK-004', varlik:'VARLK-001', tehdit:'Kotu amacli yazilim', zafiyet:'Guncel olmayan AV', ol:4, et:3, skor:12, seviye:'Orta', durum:'Planli'},
+  {id:'RSK-005', varlik:'VARLK-002 (AAA/RADIUS)', tehdit:'Hizmet cokmesi', zafiyet:'Tek nokta arizasi', ol:3, et:5, skor:15, seviye:'Yuksek', durum:'Acil'},
+  {id:'RSK-006', varlik:'VARLK-002', tehdit:'MFA atlatma', zafiyet:'Zayif MFA yapilandirmasi', ol:2, et:5, skor:10, seviye:'Orta', durum:'Planli'},
+  {id:'RSK-007', varlik:'VARLK-002', tehdit:'Konfigurasyon hatasi', zafiyet:'Yedek konfig yok', ol:4, et:3, skor:12, seviye:'Orta', durum:'Planli'},
+  {id:'RSK-008', varlik:'VARLK-003 (Personel Bilgileri)', tehdit:'KVKK ihlali', zafiyet:'Yetersiz erisim kontrolu', ol:3, et:5, skor:15, seviye:'Yuksek', durum:'Acil'},
+  {id:'RSK-009', varlik:'VARLK-003', tehdit:'Veri kaybi', zafiyet:'Yedekleme yok', ol:2, et:4, skor:8, seviye:'Orta', durum:'Planli'},
+];
+
 function guncel(){return '24.07.2026';}
+
+function sevBadge(s){
+  if(s==='Kritik'||s==='Yuksek') return `<span class='status' style='background:#fee2e2;color:#991b1b'>${s}</span>`;
+  if(s==='Orta') return `<span class='status'>${s}</span>`;
+  return `<span class='status' style='background:#dcfce7;color:#166534'>${s}</span>`;
+}
+
+function renderVarlik(){
+  const tb=document.getElementById('varlikBody'); tb.innerHTML='';
+  VARLIKLAR.forEach(v=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class='kod'>${v.id}</td><td>${v.ad}</td><td>${v.tip}</td><td>${v.sahip}</td><td>${v.gbe}</td><td><span class='status'>${v.durum}</span></td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function renderRisk(){
+  const tb=document.getElementById('riskBody'); tb.innerHTML='';
+  RISKLER.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class='kod'>${r.id}</td><td>${r.varlik}</td><td>${r.tehdit}</td><td>${r.zafiyet}</td>
+      <td>${r.ol}</td><td>${r.et}</td><td><strong>${r.skor}</strong></td>
+      <td>${sevBadge(r.seviye)}</td><td><span class='status'>${r.durum}</span></td>`;
+    tb.appendChild(tr);
+  });
+}
+
 function render(list){
   const tb=document.getElementById('tbody'); tb.innerHTML='';
   list.forEach(p=>{
@@ -156,6 +225,8 @@ function csvKaydet(){let csv='KOD;BELGE ADİ;KAPSAM;REVİZYON;DURUM;GÜNCELLEME\
   RS.forEach(p=>{csv+=`${p.kod};${p.ad};${p.kapsam};${p.rev};Hazır;${guncel()}\n`;});
   const b=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='risk_soa_listesi.csv';a.click();}
+renderVarlik();
+renderRisk();
 render(RS);
 </script>
 </body>
