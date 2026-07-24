@@ -69,7 +69,7 @@
     <div class='grp'>Dokümanlar</div>
     <a class='item' href='index.html'>Politikalar</a>
     <a class='item active' href='prosedurler.html'>Prosedürler</a>
-    <a class='item' href='DOKUMANLAR/00-SOZLESMELER/'>Sözleşmeler</a>
+    <a class='item' href='sozlesmeler.html'>Sözleşmeler</a>
     <a class='item' href='DOKUMANLAR/00-RISK-VE-SOA/'>Doküman Merkezi</a>
     <div class='grp'>SOA</div>
     <a class='item' href='DOKUMANLAR/00-RISK-VE-SOA/karsilastir_rapor.html'>Uyg. Bildirgesi</a>
@@ -129,26 +129,26 @@
 
 <script>
 const PRE = [
-  {kod:'BG.PRS.01', ad:'Şifre Yönetimi Prosedürü',            kapsam:'Erişim',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/01_Sifre_Yonetimi_Proseduru.html'},
-  {kod:'BG.PRS.02', ad:'Kullanıcı Erişim Yönetimi Prosedürü', kapsam:'Erişim',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/02_Kullanici_Erisim_Yonetimi_Proseduru.html'},
-  {kod:'BG.PRS.03', ad:'Varlık Envanteri Yönetim Prosedürü',  kapsam:'Varlık',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/03_Varlik_Envanteri_Yonetim_Proseduru.html'},
-  {kod:'BG.PRS.04', ad:'Varlık Sınıflandırma Prosedürü',       kapsam:'Varlık',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/04_Varlik_Siniflandirma_Proseduru.html'},
-  {kod:'BG.PRS.05', ad:'Personel İşe Alım ve Çıkış Prosedürü',kapsam:'İK',             rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/05_Personel_Ise_Alim_ve_Cikis_Proseduru.html'},
-  {kod:'BG.PRS.06', ad:'Fiziksel Güvenlik Prosedürü',          kapsam:'Tesis',          rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/06_Fiziksel_Guvenlik_Proseduru.html'},
-  {kod:'BG.PRS.07', ad:'Güvenlik Olayı Müdahale Prosedürü',    kapsam:'Olay',           rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/07_Guvenlik_Olayi_Mudahale_Proseduru.html'},
-  {kod:'BG.PRS.08', ad:'Yedekleme ve Kurtarma Prosedürü',     kapsam:'BCP',            rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/08_Yedekleme_ve_Kurtarma_Proseduru.html'},
-  {kod:'BG.PRS.09', ad:'Yasal Uyum Kontrol Prosedürü',        kapsam:'Uyum',           rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/09_Yasal_Uyum_Kontrol_Proseduru.html'},
-  {kod:'BG.PRS.10', ad:'Tedarikçi Değerlendirme Prosedürü',   kapsam:'Tedarik',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/10_Tedarikci_Degerlendirme_Proseduru.html'},
-  {kod:'BG.PRS.11', ad:'Risk Değerlendirme Prosedürü',        kapsam:'Risk',           rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/11_Risk_Degerlendirme_Proseduru.html'},
-  {kod:'BG.PRS.12', ad:'Politika Gözden Geçirme Prosedürü',   kapsam:'Yönetişim',       rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/12_Politika_Gozden_Gecirme_Proseduru.html'},
-  {kod:'BG.PRS.13', ad:'Eğitim ve Farkındalık Prosedürü',      kapsam:'İK',             rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/13_Egitim_ve_Farkindalik_Proseduru.html'},
-  {kod:'BG.PRS.14', ad:'İç Denetim Prosedürü',                kapsam:'Denetim',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/14_Ic_Denetim_Proseduru.html'},
-  {kod:'BG.PRS.15', ad:'DFI (Düzeltici Faaliyet) Prosedürü',  kapsam:'Süreç iyileştirme',rev:'v1.0',html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/15_DFI_(Duzeltici_Faaliyet)_Proseduru.html'},
-  {kod:'BG.PRS.16', ad:'Ağ Güvenliği Yönetim Prosedürü',      kapsam:'Ağ',             rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/16_Ag_Guvenligi_Yonetim_Proseduru.html'},
-  {kod:'BG.PRS.17', ad:'Uzaktan Çalışma Güvenliği Prosedürü', kapsam:'Uzaktan',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/17_Uzaktan_Calisma_Guvenligi_Proseduru.html'},
-  {kod:'BG.PRS.18', ad:'Bilgi Varlığı İmha Prosedürü',         kapsam:'Yaşam döngüsü',  rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/18_Bilgi_Varligi_Imha_Proseduru.html'},
-  {kod:'BG.PRS.19', ad:'Yazılım Lisans Yönetim Prosedürü',    kapsam:'Yazılım',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/19_Yazilim_Lisans_Yonetim_Proseduru.html'},
-  {kod:'BG.PRS.20', ad:'Log Yönetimi ve İzleme Prosedürü',    kapsam:'İzleme',          rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDÜRLER/20_Log_Yonetimi_ve_Izleme_Proseduru.html'},
+  {kod:'BG.PRS.01', ad:'Şifre Yönetimi Prosedürü',            kapsam:'Erişim',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/01_Sifre_Yonetimi_Proseduru.html'},
+  {kod:'BG.PRS.02', ad:'Kullanıcı Erişim Yönetimi Prosedürü', kapsam:'Erişim',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/02_Kullanici_Erisim_Yonetimi_Proseduru.html'},
+  {kod:'BG.PRS.03', ad:'Varlık Envanteri Yönetim Prosedürü',  kapsam:'Varlık',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/03_Varlik_Envanteri_Yonetim_Proseduru.html'},
+  {kod:'BG.PRS.04', ad:'Varlık Sınıflandırma Prosedürü',       kapsam:'Varlık',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/04_Varlik_Siniflandirma_Proseduru.html'},
+  {kod:'BG.PRS.05', ad:'Personel İşe Alım ve Çıkış Prosedürü',kapsam:'İK',             rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/05_Personel_Ise_Alim_ve_Cikis_Proseduru.html'},
+  {kod:'BG.PRS.06', ad:'Fiziksel Güvenlik Prosedürü',          kapsam:'Tesis',          rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/06_Fiziksel_Guvenlik_Proseduru.html'},
+  {kod:'BG.PRS.07', ad:'Güvenlik Olayı Müdahale Prosedürü',    kapsam:'Olay',           rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/07_Guvenlik_Olayi_Mudahale_Proseduru.html'},
+  {kod:'BG.PRS.08', ad:'Yedekleme ve Kurtarma Prosedürü',     kapsam:'BCP',            rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/08_Yedekleme_ve_Kurtarma_Proseduru.html'},
+  {kod:'BG.PRS.09', ad:'Yasal Uyum Kontrol Prosedürü',        kapsam:'Uyum',           rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/09_Yasal_Uyum_Kontrol_Proseduru.html'},
+  {kod:'BG.PRS.10', ad:'Tedarikçi Değerlendirme Prosedürü',   kapsam:'Tedarik',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/10_Tedarikci_Degerlendirme_Proseduru.html'},
+  {kod:'BG.PRS.11', ad:'Risk Değerlendirme Prosedürü',        kapsam:'Risk',           rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/11_Risk_Degerlendirme_Proseduru.html'},
+  {kod:'BG.PRS.12', ad:'Politika Gözden Geçirme Prosedürü',   kapsam:'Yönetişim',       rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/12_Politika_Gozden_Gecirme_Proseduru.html'},
+  {kod:'BG.PRS.13', ad:'Eğitim ve Farkındalık Prosedürü',      kapsam:'İK',             rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/13_Egitim_ve_Farkindalik_Proseduru.html'},
+  {kod:'BG.PRS.14', ad:'İç Denetim Prosedürü',                kapsam:'Denetim',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/14_Ic_Denetim_Proseduru.html'},
+  {kod:'BG.PRS.15', ad:'DFI (Düzeltici Faaliyet) Prosedürü',  kapsam:'Süreç iyileştirme',rev:'v1.0',html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/15_DFI_(Duzeltici_Faaliyet)_Proseduru.html'},
+  {kod:'BG.PRS.16', ad:'Ağ Güvenliği Yönetim Prosedürü',      kapsam:'Ağ',             rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/16_Ag_Guvenligi_Yonetim_Proseduru.html'},
+  {kod:'BG.PRS.17', ad:'Uzaktan Çalışma Güvenliği Prosedürü', kapsam:'Uzaktan',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/17_Uzaktan_Calisma_Guvenligi_Proseduru.html'},
+  {kod:'BG.PRS.18', ad:'Bilgi Varlığı İmha Prosedürü',         kapsam:'Yaşam döngüsü',  rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/18_Bilgi_Varligi_Imha_Proseduru.html'},
+  {kod:'BG.PRS.19', ad:'Yazılım Lisans Yönetim Prosedürü',    kapsam:'Yazılım',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/19_Yazilim_Lisans_Yonetim_Proseduru.html'},
+  {kod:'BG.PRS.20', ad:'Log Yönetimi ve İzleme Prosedürü',    kapsam:'İzleme',          rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/20_Log_Yonetimi_ve_Izleme_Proseduru.html'},
 ];
 function guncel(){return '24.07.2026';}
 function render(list){

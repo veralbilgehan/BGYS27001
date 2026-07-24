@@ -73,7 +73,9 @@ def main():
                 continue
             src = os.path.join(root, f)
             rel = os.path.relpath(root, DOK)
-            dst_dir = os.path.join(OUT, rel)
+            # klasor ADI da ASCII-safe olmali (00-PROSEDÜRLER -> 00-PROSEDURLER)
+            rel_safe = os.path.join(*[ascii_safe(p) for p in rel.split(os.sep)])
+            dst_dir = os.path.join(OUT, rel_safe)
             os.makedirs(dst_dir, exist_ok=True)
             # ASCII-safe dosya adi (http.server Windows UTF-8 path uyumsuzlugu)
             safe = ascii_safe(f[:-5]) + ".html"
