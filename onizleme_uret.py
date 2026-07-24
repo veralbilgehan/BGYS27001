@@ -55,6 +55,14 @@ def html_wrap(title, body):
 <p style='margin-top:30px;color:#6b7280;font-size:12px'>Kaynak: {title} · BGYS27001 otomatik onizleme</p>
 </body></html>"""
 
+def ascii_safe(name):
+    tr = {'Ş':'S','ş':'s','İ':'I','I':'I','ı':'i','Ç':'C','ç':'c',
+          'Ğ':'G','ğ':'g','Ü':'U','ü':'u','Ö':'O','ö':'o'}
+    out = []
+    for ch in name:
+        out.append(tr.get(ch, ch))
+    return "".join(out)
+
 def main():
     count = 0
     for root, dirs, files in os.walk(DOK):
@@ -67,7 +75,9 @@ def main():
             rel = os.path.relpath(root, DOK)
             dst_dir = os.path.join(OUT, rel)
             os.makedirs(dst_dir, exist_ok=True)
-            dst = os.path.join(dst_dir, f[:-5] + ".html")
+            # ASCII-safe dosya adi (http.server Windows UTF-8 path uyumsuzlugu)
+            safe = ascii_safe(f[:-5]) + ".html"
+            dst = os.path.join(dst_dir, safe)
             try:
                 body = docx_to_html(src)
                 with open(dst, "w", encoding="utf-8") as fh:
