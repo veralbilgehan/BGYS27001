@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang='tr'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>BGYS27001 - Prosedür Üretici (JS)</title>
+  <style>
+    :root{
+      --bg1:#f2f6ff; --bg2:#eefcf7; --card:#ffffff; --ink:#1f2937; --muted:#6b7280;
+      --accent:#7C9E0E; --accent2:#3b82f6; --line:#e5e7eb; --danger:#ef4444; --ok:#22c55e;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);
+      background:radial-gradient(1200px 500px at 15% -10%,#dbeafe 0%,transparent 60%),
+                 radial-gradient(900px 400px at 90% 0%,#dcfce7 0%,transparent 55%),
+                 linear-gradient(160deg,var(--bg1),var(--bg2));min-height:100vh}
+    .wrap{max-width:1180px;margin:32px auto;padding:0 16px}
+    .intro{background:var(--card);border:1px solid var(--line);border-radius:16px;
+      box-shadow:0 12px 40px rgba(15,23,42,.08);padding:22px 24px;margin-bottom:22px}
+    h1{margin:0 0 6px;font-size:24px}
+    .intro p{margin:6px 0;color:var(--muted);font-size:14px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+    button.btn{border:none;border-radius:10px;padding:9px 18px;font-size:14px;font-weight:600;cursor:pointer;color:#fff}
+    .btn-print{background:var(--accent)} .btn-json{background:var(--accent2)} .btn-reset{background:#f1f5f9;color:#334155}
+    a.link{color:var(--accent2);text-decoration:none;font-size:14px;font-weight:600;
+      border:1px solid #d1d5db;background:#fff;padding:8px 14px;border-radius:10px}
+    a.link:hover{background:#f1f5f9;text-decoration:none}
+    .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .pill{background:#fff7e6;border:1px solid #f5c66b;color:#92560b;border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:600}
+
+    .doc{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+      box-shadow:0 8px 28px rgba(15,23,42,.08);margin-bottom:26px;page-break-after:always}
+    .doc:last-child{page-break-after:auto}
+    .doc .tag{padding:8px 14px;font-size:12px;font-weight:700;letter-spacing:.04em;color:#fff}
+    .tag.fill{background:var(--accent)} .tag.empty{background:#9aa3af}
+    .doc .inner{padding:18px 22px}
+
+    /* Word benzeri başlık tablosu (protokol_preview.html ile uyumlu) */
+    .hdrtable{width:100%;border-collapse:collapse;margin-bottom:16px}
+    .hdrtable td{border:3px solid var(--accent);vertical-align:middle;padding:10px 12px}
+    .hdrtable .logo{width:120px;text-align:center;background:#fbfef2}
+    .hdrtable .logo .box{border:2px dashed var(--accent);border-radius:8px;padding:14px 6px;color:var(--accent);font-weight:700;font-size:12px}
+    .hdrtable .title .firma{font-weight:800;font-size:15px}
+    .hdrtable .title .adres{font-size:12.5px;color:#374151;margin-top:2px}
+    .hdrtable .title .pname{font-weight:800;font-size:14px;margin-top:8px;color:var(--accent)}
+    .hdrtable .title .kap{font-size:12px;color:#374151;margin-top:2px}
+    .var{background:#fff3cd;border:1px solid #f0c869;border-radius:4px;padding:0 4px;color:#8a5300;font-weight:700;font-family:Consolas,monospace;font-size:12.5px}
+
+    .polbody{font-size:13.5px;line-height:1.55}
+    .polbody h3{font-size:14.5px;margin:14px 0 4px;color:var(--accent)}
+    .polbody h4{font-size:13.5px;margin:10px 0 3px;color:var(--accent)}
+    .polbody p{margin:3px 0}
+    .polbody ol,.polbody ul{margin:4px 0 4px 18px;padding:0}
+    .polbody li{margin:3px 0}
+    .polbody table{border-collapse:collapse;width:100%;margin:8px 0;font-size:12.5px}
+    .polbody table td,.polbody table th{border:1px solid #cbd5e1;padding:5px 8px}
+    .polbody table tr:first-child{background:#f1f7e8;font-weight:700}
+    .checks li{list-style:none;position:relative;padding-left:22px}
+    .checks li:before{content:"\2610";position:absolute;left:0;top:0;color:var(--accent);font-size:15px}
+    .footnote{margin-top:14px;font-size:11.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+
+    /* toast */
+    #toast{position:fixed;bottom:24px;right:24px;padding:10px 20px;border-radius:8px;color:#fff;
+      font-size:14px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.2);
+      opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none}
+    #toast.show{opacity:1;transform:translateY(0)}
+
+    @media print{
+      body{background:#fff}
+      .wrap{max-width:none;margin:0;padding:0}
+      .intro,.toolbar,.actions,.legend{display:none !important}
+      .doc{box-shadow:none;border:1px solid #ccc;border-radius:0;margin:0 0 0 0;page-break-after:always}
+      .hdrtable td{border:3px solid var(--accent) !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    }
+    @media (max-width:640px){.hdrtable .logo{display:none}}
+  </style>
+</head>
+<body>
+<div class='wrap'>
+
+  <div class='intro'>
+    <h1>Prosedür Üretici (JavaScript) — BG.PRS.01–20</h1>
+    <p>Python (<code>uret_prosedurler.py</code>) yerine tarayıcıda çalışır. 20 prosedür aynı turuncu kenarlı başlık tablosu ve <code>render_body</code> mantığıyla üretilir. Python'a gerek yok.</p>
+    <p>Firma değişkenleri <code>firma_bilgileri.html</code> ile <b>aynı localStorage</b> kaynağından gelir: <code>company_unvan</code>, <code>company_adres</code>, <code>company_il</code>, <code>company_ilce</code>, <code>company_postaKodu</code>, <code>company_ulke</code>, <code>company_sozBas</code>.</p>
+    <div class='legend'>
+      <span class='pill'>{FİRMA_UNVANI} ← unvan</span>
+      <span class='pill'>{FİRMA_ADRESI} ← adres+il+ilce+postaKodu+ulke</span>
+      <span class='pill'>{REVIZYON} ← meta'dan</span>
+      <span class='pill'>{TARIH} ← sozBas / güncel tarih</span>
+      <span class='pill'>{KAPSAM} ← prosedüre özel</span>
+    </div>
+    <div class='toolbar'>
+      <button class='btn btn-print' onclick='window.print()'>🖨 Yazdır / PDF</button>
+      <button class='btn btn-json' onclick='exportJson()'>📦 JSON Olarak Dışa Aktar</button>
+      <button class='btn btn-reset' onclick='reloadFromStorage()'>🔄 Firma Verisini Yeniden Oku</button>
+      <a class='link' href='firma_bilgileri.html' target='_blank' rel='noopener'>✎ Firma Bilgileri &rarr;</a>
+    </div>
+  </div>
+
+  <div id='docs'></div>
+</div>
+
+<div id='toast'></div>
+
+<script src='prosedur_data.js'></script>
+<script>
+// ── Firma verisi (firma_bilgileri.html ile aynı anahtarlar) ────────────────
+function getCompany() {
+  var keys = ['unvan','adres','il','ilce','postaKodu','ulke','sozBas'];
+  var c = {};
+  keys.forEach(function(k){
+    var v = localStorage.getItem('company_' + k);
+    c[k] = (v === null) ? '' : v;
+  });
+  // adres satırı: açık adres + il/ilce/postaKodu/ulke
+  var parts = [];
+  if (c.adres) parts.push(c.adres);
+  if (c.il) parts.push(c.il);
+  if (c.ilce) parts.push(c.ilce);
+  if (c.postaKodu) parts.push(c.postaKodu);
+  if (c.ulke) parts.push(c.ulke);
+  c.adresSatir = parts.join(', ');
+  return c;
+}
+
+function toast(msg, type) {
+  type = type || 'success';
+  var t = document.getElementById('toast');
+  var bg = type==='success' ? '#22c55e' : type==='error' ? '#ef4444' : '#3b82f6';
+  t.style.background = bg;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.classList.remove('show'); }, 2800);
+}
+
+// ── Python render_body mantığının JS portu ─────────────────────────────────
+// Giriş: metin (tablo satırları \t ile, başlıklar "N." / "N.N.", kutular □/☐)
+// Çıkış: HTML string
+function render_body(text) {
+  var lines = text.split('\n');
+  var n = lines.length, i = 0;
+  var html = '';
+  while (i < n) {
+    var line = lines[i].replace(/\s+$/, '');
+    if (!line.trim()) { i++; continue; }
+    // tablo
+    if (line.indexOf('\t') !== -1) {
+      var tbl_lines = [];
+      while (i < n && lines[i].indexOf('\t') !== -1) {
+        tbl_lines.push(lines[i].replace(/\s+$/, ''));
+        i++;
+      }
+      var cols = tbl_lines.map(function(r){ return r.split('\t').length; });
+      var sameCols = cols.every(function(c){ return c === cols[0]; });
+      if (sameCols && cols[0] >= 2 && tbl_lines.length >= 2) {
+        html += '<table><tbody>';
+        tbl_lines.forEach(function(r, ri){
+          var cells = r.split('\t');
+          if (ri === 0) {
+            html += '<tr>' + cells.map(function(c){ return '<th>' + esc(c) + '</th>'; }).join('') + '</tr>';
+          } else {
+            html += '<tr>' + cells.map(function(c){ return '<td>' + esc(c) + '</td>'; }).join('') + '</tr>';
+          }
+        });
+        html += '</tbody></table>';
+        continue;
+      }
+      // yukarıdaki koşul tutmazsa normal paragraf olarak aşağı düşer
+    }
+    // alt başlık N.N.
+    var m = line.match(/^(\d+)\.(\d+)\.\s+(.*)$/);
+    if (m) {
+      html += '<h4>' + esc(line) + '</h4>';
+      i++; continue;
+    }
+    // başlık N.
+    var m2 = line.match(/^(\d+)\.\s+(.*)$/);
+    if (m2) {
+      html += '<h3>' + esc(line) + '</h3>';
+      i++; continue;
+    }
+    // onay kutusu
+    var st = line.trim();
+    if (st.charAt(0) === '□' || st.charAt(0) === '☐') {
+      html += '<li>' + esc(st.replace(/^[□☐]\s*/, '')) + '</li>';
+      i++; continue;
+    }
+    // onay kutusu grubunu <ul class=checks> ile sarmala
+    html += '<p>' + esc(line) + '</p>';
+    i++;
+  }
+  // onay kutularını ul ile sarmala (ardışık li'leri grupla)
+  html = html.replace(/(<li>.*?<\/li>)(?=\s*<li>)/g, function(m){ return m; });
+  // basit wrap: ardışık <li> bloklarını bir <ul class="checks"> içine al
+  html = wrapChecks(html);
+  return html;
+}
+
+// ardışık <li>...</li> gruplarını <ul class="checks"> ile sar
+function wrapChecks(html) {
+  return html.replace(/(?:<li>.*?<\/li>\s*)+/g, function(block){
+    return '<ul class="checks">' + block.replace(/\s+$/,'') + '</ul>';
+  });
+}
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+// {{firma_unvan}} placeholder'ını firma unvanıyla değiştir (veya yerinde bırak)
+function fillVars(text, c, dolu) {
+  if (dolu && c.unvan) {
+    return text.replace(/\{\{firma_unvan\}\}/g, c.unvan);
+  }
+  return text; // boş şablon: placeholder kalsın
+}
+
+// ── Tek bir prosedür belgesi üret ──────────────────────────────────────────
+function makeDoc(block) {
+  var c = getCompany();
+  // dolu mu? no==1 VEYA localStorage'da unvan varsa dolu kabul et
+  var dolu = (block.no === 1) || (!!c.unvan);
+  var unvan = dolu ? (c.unvan || '{{FİRMA_UNVANI}}') : '{{FİRMA_UNVANI}}';
+  var adres = dolu ? (c.adresSatir || '{{FİRMA_ADRESI}}') : '{{FİRMA_ADRESI}}';
+  var kapsam = block.kapsam || '{{KAPSAM}}';
+  var meta = block.meta || {};
+  var revizyon = meta['Revizyon'] || '{{REVIZYON}}';
+  var tarih = c.sozBas ? c.sozBas : '{{TARIH}}';
+
+  var bodyHtml = render_body(fillVars(block.body, c, dolu));
+
+  var tagClass = dolu ? 'fill' : 'empty';
+  var tagText = dolu
+    ? ('#' + block.no + ' — DOLU · ' + block.title)
+    : ('#' + block.no + ' — BOŞ ŞABLON · ' + block.title);
+
+  var unvanCell = dolu ? esc(unvan) : "<span class='var'>{FİRMA_UNVANI}</span>";
+  var adresCell = dolu ? esc(adres) : "<span class='var'>{FİRMA_ADRESI}</span>";
+  var kapCell = dolu ? esc(kapsam) : "<span class='var'>{KAPSAM}</span>";
+
+  var metaLine = "<div style='font-size:12.5px;color:#374151;margin-bottom:6px'>"
+    + "<b>İlgili Politika:</b> " + esc(meta['İlgili Politika'] || '') + "&nbsp;&nbsp;|&nbsp;&nbsp;"
+    + "<b>Prosedür Kodu:</b> " + esc(meta['Prosedür Kodu'] || '') + "&nbsp;&nbsp;|&nbsp;&nbsp;"
+    + "<b>Revizyon:</b> " + esc(revizyon) + "&nbsp;&nbsp;|&nbsp;&nbsp;"
+    + "<b>Tarih:</b> " + (dolu ? esc(tarih) : "<span class='var'>{TARIH}</span>")
+    + "</div>";
+
+  var html = "<div class='doc'>"
+    + "<div class='tag " + tagClass + "'>" + esc(tagText) + "</div>"
+    + "<div class='inner'>"
+    + "<table class='hdrtable'><tr>"
+    + "<td class='logo'><div class='box'>LOGO</div></td>"
+    + "<td class='title'>"
+    +   "<div class='firma'>" + unvanCell + "</div>"
+    +   "<div class='adres'>" + adresCell + "</div>"
+    +   "<div class='pname'>" + esc(block.title.toUpperCase()) + "</div>"
+    +   "<div class='kap'>Kapsam: " + kapCell + "</div>"
+    + "</td></tr></table>"
+    + metaLine
+    + "<div class='polbody'>" + bodyHtml + "</div>"
+    + "<div class='footnote'>"
+    + (dolu
+        ? "Firma bilgileri firma_bilgileri.html (localStorage) değerleriyle dolduruldu."
+        : "Firma değişkenleri {FİRMA_UNVANI}/{FİRMA_ADRESI} olarak bırakılmıştır; firma_bilgileri.html'de kaydedilince otomatik dolar.")
+    + "</div>"
+    + "</div></div>";
+  return html;
+}
+
+// ── Tüm prosedürleri render et ─────────────────────────────────────────────
+function renderAll() {
+  var docs = document.getElementById('docs');
+  if (!window.PROSEDURLER) {
+    docs.innerHTML = "<p style='color:#ef4444'>prosedur_data.js yüklenemedi.</p>";
+    return;
+  }
+  var html = '';
+  window.PROSEDURLER
+    .slice()
+    .sort(function(a,b){ return a.no - b.no; })
+    .forEach(function(b){ html += makeDoc(b); });
+  docs.innerHTML = html;
+  toast(window.PROSEDURLER.length + ' prosedür üretildi.');
+}
+
+function reloadFromStorage() {
+  renderAll();
+  toast('Firma verisi yeniden okundu.', 'info');
+}
+
+function exportJson() {
+  var data = (window.PROSEDURLER || []).map(function(b){
+    return { no:b.no, title:b.title, meta:b.meta, kapsam:b.kapsam, body:b.body };
+  });
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'prosedurler.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('JSON indirildi.', 'info');
+}
+
+renderAll();
+</script>
+</body>
+</html>

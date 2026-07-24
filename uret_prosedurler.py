@@ -360,6 +360,9 @@ Tüm adaylar, çalışanlar, stajyerler ve sözleşmeli personel.
 
 Genel Müdür: Kritik pozisyonlarda onay.
 
+3.1. Görev Ayrımı (ISO 27001 A.5.3)
+Kritik güvenlik fonksiyonları ile operasyonel görevler aynı kişide toplanamaz. Örneğin; sistem yöneticisi ile güvenlik denetçisi, yazılım geliştirici ile canlı ortam onaylayıcısı ayrı kişilerdir. Yetki çakışmalarını önlemek için pozisyon tanımlarında sorumluluklar net ayrılır ve düzenli gözden geçirilir.
+
 4. İşe Alım Prosedürü
 4.1. İlan ve Başvuru
 Açık pozisyon ilan edilir.
@@ -1129,6 +1132,9 @@ Firewall kuralları 3 ayda bir gözden geçirilir.
 Uzaktan erişim için VPN kullanılır.
 
 VPN bağlantıları için MFA zorunludur.
+
+4.4. Bilgi Transferi (ISO 27001 A.5.14)
+Firma dışına yapılacak tüm bilgi transferleri şifreli kanal üzerinden gerçekleştirilir (TLS 1.2+ veya VPN tüneli). Hassas veriler e-posta ile gönderilecekse şifreli ek veya güvenli dosya paylaşım sistemi kullanılır. Taşınabilir medya (USB, harici disk) ile transferler kayıt altına alınır ve şifrelenir. Üçüncü taraflara yapılacak bilgi transferleri Gizlilik Sözleşmesi kapsamında yürütülür.
 
 VPN kullanıcıları en az ayrıcalık ilkesine tabidir.
 
