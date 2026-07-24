@@ -3,7 +3,7 @@
 <head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<title>BGYS Yönetim Paneli — Sözleşmeler</title>
+<title>BGYS Yönetim Paneli — Risk Analizi ve SoA</title>
 <style>
   :root{
     --navy:#0f1e3d; --navy2:#16264d; --accent:#2563eb; --accent2:#7C9E0E;
@@ -69,13 +69,11 @@
     <div class='grp'>Dokümanlar</div>
     <a class='item' href='index.html'>Politikalar</a>
     <a class='item' href='prosedurler.html'>Prosedürler</a>
-    <a class='item active' href='sozlesmeler.html'>Sözleşmeler</a>
-    <a class='item' href='risk_soa.html'>Doküman Merkezi</a>
+    <a class='item' href='sozlesmeler.html'>Sözleşmeler</a>
+    <a class='item active' href='risk_soa.html'>Doküman Merkezi</a>
     <div class='grp'>SOA</div>
-    <a class='item' href='risk_soa.htmlkarsilastir_rapor.html'>Uyg. Bildirgesi</a>
+    <a class='item' href='risk_soa.html'>Uyg. Bildirgesi</a>
     <div class='grp'>Risk &amp; Varlık</div>
-    <a class='item' href='#'>Varlık Yönetimi</a>
-    <a class='item' href='#'>Sınıflandırma</a>
     <a class='item' href='risk_soa.html'>Risk Analizi</a>
     <a class='item' href='#'>Risk İşleme</a>
     <div class='grp'>Kontroller</div>
@@ -88,20 +86,20 @@
   <div class='main'>
     <div class='topbar'>
       <div>
-        <h2>Sözleşme Listesi</h2>
-        <div class='sub'>BGYS sözleşme şablonlarının hazırlık ve görüntüleme özeti (HTML önizleme).</div>
+        <h2>Risk Analizi ve SoA</h2>
+        <div class='sub'>Doküman Merkezi — Risk değerlendirme ve Uygulanabilirlik Bildirgesi (HTML önizleme).</div>
       </div>
       <div class='spacer'></div>
       <button class='bell'>&#128276; Bildirimler</button>
-      <button class='btn blue' onclick="alert('Yeni sozlesme: uret_sozlesmeler.py ile olusturulur.')">+ Yeni Kayıt</button>
+      <button class='btn blue' onclick="alert('Yeni kayıt: uret_risk_soa.py ile olusturulur.')">+ Yeni Kayıt</button>
     </div>
 
     <div class='content'>
       <div class='card'>
         <div class='chead'>
-          <h3>Tüm Sözleşmeler</h3>
-          <input id='search' class='search' placeholder='Sözleşme ara...' oninput='filtre()'>
-          <button class='btn blue' onclick="alert('Yeni sozlesme: uret_sozlesmeler.py ile 5 sozlesmeye eklenir.')">+ Yeni Sözleşme</button>
+          <h3>Tüm Risk &amp; SoA Belgeleri</h3>
+          <input id='search' class='search' placeholder='Belge ara...' oninput='filtre()'>
+          <button class='btn blue' onclick="alert('Yeni belge: uret_risk_soa.py ile eklenir.')">+ Yeni Belge</button>
           <button class='btn green' onclick='csvKaydet()'>&#128190; CSV Kaydet</button>
           <button class='btn orange' onclick='window.print()'>&#128424; Yazdır</button>
         </div>
@@ -128,15 +126,10 @@
 </div>
 
 <script>
-const SOZ = [
-  {kod:'BG.SOZ.01', ad:'Gizlilik ve Bilgi Güvenliği Sözleşmesi (NDA)', kapsam:'Firma-Firma', rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-SOZLESMELER/01_Gizlilik_Bilgi_Guvenligi_Sozlesmesi.html'},
-  {kod:'BG.SOZ.02', ad:'Belirli Süreli İş Sözleşmesi',              kapsam:'Personel',     rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-SOZLESMELER/02_Belirli_Sureli_Is_Sozlesmesi.html'},
-  {kod:'BG.SOZ.03', ad:'Belirsiz Süreli İş Sözleşmesi',            kapsam:'Personel',     rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-SOZLESMELER/03_Belirsiz_Sureli_Is_Sozlesmesi.html'},
-  {kod:'BG.SOZ.04', ad:'Uzaktan Çalışma İş Sözleşmesi',            kapsam:'Personel',     rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-SOZLESMELER/04_Uzaktan_Calisma_Is_Sozlesmesi.html'},
-  {kod:'BG.SOZ.05', ad:'Bilgi Koruma Taahhütnamesi',               kapsam:'Personel',     rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-SOZLESMELER/05_Bilgi_Koruma_Taahhutnamesi.html'},
-  {kod:'BG.SOZ.06', ad:'İnternet Servis Sağlayıcılığı Abonelik Sözleşmesi', kapsam:'Müşteri', rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-SOZLESMELER/06_Internet_Servis_Saglayiciligi_Abonelik_Sozlesmesi.html'},
-  {kod:'BG.SOZ.07', ad:'KVKK Aydınlatma Metni',                       kapsam:'Kişisel Veri', rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-SOZLESMELER/07_Kvkk_Aydinlatma_Metni.html'},
-  {kod:'BG.SOZ.08', ad:'Kişisel Verilerin Aktarılmasına İlişkin Protokol', kapsam:'Kişisel Veri', rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-SOZLESMELER/08_Kisisel_Verilerin_Aktarilmasina_Iliskin_Protokol.html'},
+const RS = [
+  {kod:'BG.RSK.01', ad:'Risk Analizi Raporu',                    kapsam:'Risk',  rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-RISK-VE-SOA/01_Risk_Analizi.html'},
+  {kod:'BG.SOA.01', ad:'SoA Uygulanabilirlik Bildirgesi',        kapsam:'SoA',   rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-RISK-VE-SOA/02_SoA_Uygulanabilirlik_Bildirgesi.html'},
+  {kod:'BG.SOA.02', ad:'SoA Karşılaştırma Raporu',            kapsam:'SoA',   rev:'v1.0', html:'DOKUMANLAR/00-RISK-VE-SOA/karsilastir_rapor.html'},
 ];
 function guncel(){return '24.07.2026';}
 function render(list){
@@ -154,16 +147,16 @@ function render(list){
   });
 }
 function filtre(){const q=document.getElementById('search').value.toLowerCase();
-  render(SOZ.filter(p=>p.ad.toLowerCase().includes(q)||p.kod.toLowerCase().includes(q)));}
+  render(RS.filter(p=>p.ad.toLowerCase().includes(q)||p.kod.toLowerCase().includes(q)));}
 function goruntule(html,ad){document.getElementById('vtitle').textContent=ad+' — Önizleme';
   document.getElementById('vframe').src=html;document.getElementById('viewer').style.display='block';}
 function viewerKapat(){document.getElementById('viewer').style.display='none';document.getElementById('vframe').src='about:blank';}
 function sil(kod){if(confirm(kod+' silinsin mi? (demo)'))alert(kod+' işaretlendi.');}
 function csvKaydet(){let csv='KOD;BELGE ADİ;KAPSAM;REVİZYON;DURUM;GÜNCELLEME\n';
-  SOZ.forEach(p=>{csv+=`${p.kod};${p.ad};${p.kapsam};${p.rev};Hazır;${guncel()}\n`;});
+  RS.forEach(p=>{csv+=`${p.kod};${p.ad};${p.kapsam};${p.rev};Hazır;${guncel()}\n`;});
   const b=new Blob([csv],{type:'text/csv;charset=utf-8'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='sozlesme_listesi.csv';a.click();}
-render(SOZ);
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='risk_soa_listesi.csv';a.click();}
+render(RS);
 </script>
 </body>
 </html>
