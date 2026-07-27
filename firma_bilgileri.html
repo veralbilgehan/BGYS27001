@@ -87,7 +87,13 @@
       transition:opacity .25s, transform .25s; pointer-events:none;
     }
     #toast.show { opacity:1; transform:translateY(0); }
-    @media (max-width:640px) { .fields { grid-template-columns:1fr; } }
+    .foot{font-size:12px;color:var(--muted);padding:16px 22px;border-top:1px solid var(--line);background:#fafbfd}
+    /* belge degiskenleri */
+    .varlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 18px}
+    .varlist .vrow{display:flex;flex-direction:column;gap:4px}
+    .varlist label{font-weight:600;font-size:12px;color:var(--accent)}
+    .varlist input{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;font-size:13px}
+    @media(max-width:640px){.varlist{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -250,6 +256,23 @@
         </div>
       </div>
     </div>
+
+    <!-- BELGE DEĞİŞKENLERİ KARTI -->
+    <div class='card'>
+      <div class='head'>
+        <div>
+          <h1>Belge Değişkenleri (Parametreler)</h1>
+          <div class='meta'>Tüm belgelerdeki çift parantez {{...}} değişkenleri buradan doldurulur. "Belgelere Uygula" (Yükle) denince Politika / Prosedür / Sözleşme belgelerindeki {{değişken}} yerine yazılan değer gider.</div>
+        </div>
+      </div>
+      <div class='body'>
+        <div id='varList' class='varlist'><p style='color:#6b7280;font-size:13px'>Değişkenler yükleniyor...</p></div>
+        <div class='actions'>
+          <button class='btn btn-save' onclick='degiskenleriUygula()'>&#128229; Belgelere Uygula (Yükle)</button>
+          <button class='btn btn-reset' onclick='degiskenleriTemizle()'>&#10005; Cevapları Temizle</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id='toast'></div>
@@ -340,6 +363,47 @@
     });
 
     loadCompany();
+
+    // === BELGE DEĞİŞKENLERİ KARTI ===
+    var VAR_FIELDS = [
+      'firma_unvan','firma_adresi','Firma_Unvan','Personel_Ad_Soyad','Sözleşme_Tarihi',
+      'İmza_Tarihi','PLATFORM_WEB_ADRESI','Sözleşme_No','Personel_TC','Firma_Adres',
+      'Yetkili_Mahkeme','Firma_Yetkili','Firma_Yetkili_Unvan','MUSTERI_HIZMETLERI_TEL',
+      'Firma1_Unvan','Firma2_Unvan','İş_Tanımı','Ödeme_Günü','Firma_Vergi_No','Firma_SSK_Sicil',
+      'Personel_SSK_No','Personel_Doğum_Yeri_Yılı','Personel_Telefon','Personel_Email',
+      'İşe_Başlama_Tarihi','Sözleşme_Süresi_Yıl','İş_Konusu','Deneme_Süresi_Gün','Net_Ücret',
+      'PLATFORM_UNVAN','DOKUMAN_KODU','FIRMA_ADRESI','FIRMA_EPOSTA','AKOTO_ADRESI','AKOTO_UNVANI','TURCOM_UNVANI'
+    ];
+
+    function renderVarList() {
+      var box = document.getElementById('varList');
+      if (!box) return;
+      var html = '';
+      VAR_FIELDS.forEach(function(key){
+        var sv = localStorage.getItem('var_' + key);
+        html += "<div class='vrow'><label>"+key+"</label>"+
+                "<input id='var_"+key+"' type='text' value='"+(sv||'').replace(/'/g,"\\'")+"' placeholder='Değer yazın...'></div>";
+      });
+      box.innerHTML = html;
+    }
+
+    function degiskenleriUygula() {
+      // Değerleri localStorage'a kaydet
+      VAR_FIELDS.forEach(function(key){
+        var el = document.getElementById('var_' + key);
+        if (el) localStorage.setItem('var_' + key, el.value);
+      });
+      // Not: Değişkenler görüntüleme anında (govdeYukle) otomatik ikame edilir.
+      toast('Değişkenler kaydedildi. Politika/Prosedür/Sözleşme belgelerini açtığınızda {{değişken}} yerine değer yazılır.');
+    }
+
+    function degiskenleriTemizle() {
+      VAR_FIELDS.forEach(function(key){ localStorage.removeItem('var_' + key); });
+      renderVarList();
+      toast('Cevaplar temizlendi.', 'info');
+    }
+
+    renderVarList();
   </script>
 </body>
 </html>

@@ -264,10 +264,21 @@ function govdeKaynakToggle(){
   else { vis.innerHTML=src.value; src.style.display='none'; vis.style.display='block'; }
 }
 async function govdeYukle(kod,html){
-  try{ const s=localStorage.getItem('bgys_govde_'+kod); if(s){ document.getElementById('eGovde').innerHTML=JSON.parse(s).govde; return; } }catch(e){}
+  const varKeys = ['firma_unvan','firma_adresi','Firma_Unvan','Personel_Ad_Soyad','Sözleşme_Tarihi',
+      'İmza_Tarihi','PLATFORM_WEB_ADRESI','Sözleşme_No','Personel_TC','Firma_Adres',
+      'Yetkili_Mahkeme','Firma_Yetkili','Firma_Yetkili_Unvan','MUSTERI_HIZMETLERI_TEL',
+      'Firma1_Unvan','Firma2_Unvan','İş_Tanımı','Ödeme_Günü','Firma_Vergi_No','Firma_SSK_Sicil',
+      'Personel_SSK_No','Personel_Doğum_Yeri_Yılı','Personel_Telefon','Personel_Email',
+      'İşe_Başlama_Tarihi','Sözleşme_Süresi_Yıl','İş_Konusu','Deneme_Süresi_Gün','Net_Ücret',
+      'PLATFORM_UNVAN','DOKUMAN_KODU','FIRMA_ADRESI','FIRMA_EPOSTA','AKOTO_ADRESI','AKOTO_UNVANI','TURCOM_UNVANI'];
+  function applyVars(txt){
+    varKeys.forEach(k=>{ const v=localStorage.getItem('var_'+k); if(v!==null) txt=txt.split('{{'+k+'}}').join(v); });
+    return txt;
+  }
+  try{ const s=localStorage.getItem('bgys_govde_'+kod); if(s){ document.getElementById('eGovde').innerHTML=applyVars(JSON.parse(s).govde); return; } }catch(e){}
   const r = ROL.find(x=>x.kod===kod);
   if(r){
-    document.getElementById('eGovde').innerHTML = '<h2>'+r.ad+'</h2><p><b>Kapsam:</b> '+r.kapsam+'</p><p><b>Sorumlu:</b> '+r.sorumlu+'</p><p><b>Yetkiler:</b> '+r.yetki+'</p><p>Bu alana rolün detaylı görev tanımını yazabilirsiniz.</p>';
+    document.getElementById('eGovde').innerHTML = applyVars('<h2>'+r.ad+'</h2><p><b>Kapsam:</b> '+r.kapsam+'</p><p><b>Sorumlu:</b> '+r.sorumlu+'</p><p><b>Yetkiler:</b> '+r.yetki+'</p><p>Bu alana rolün detaylı görev tanımını yazabilirsiniz.</p>');
   }
 }
 // === DÜZENLE MODAL ===

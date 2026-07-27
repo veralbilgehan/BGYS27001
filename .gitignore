@@ -3,6 +3,11 @@
 __pycache__/
 *.pyc
 
+# Node / React (sozlesme-motoru)
+node_modules/
+dist/
+*.tsbuildinfo
+
 # Hermes agent internals
 .hermes/
 

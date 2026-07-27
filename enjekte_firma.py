@@ -1,26 +1,36 @@
 # -*- coding: utf-8 -*-
 """
 AJAN 1 -> DIGER AJANLAR VERI AKSII
-firma_bilgileri.html'deki 26 alani okur, docx'lerdeki firma yer tutucularini
+firma_bilgileri.html formundaki 26 alani okur, docx'lerdeki firma yer tutucularini
 gercek degerlerle degistirir.
+
+VERI KAYNAGI (oncelik sirasi):
+  1) firma_bilgileri.json  -> formdaki "JSON indir" butonuyla uretilir
+                               (localStorage icerigini disari aktarir). EN GUNALI.
+  2) firma_bilgileri.html  -> input value='...' / <textarea>... (eski/sabit degerler)
+JSON bulunursa HTML'e tercih edilir (JSON override eder).
 
 Desteklenen yer tutucular:
   Politika/Prosedur/Risk+SoA: {{firma_unvan}}, {{firma_adresi}}
   Sozlesmeler (Firma tarafı): {{Firma_Unvan}}, {{Firma_Adres}},
       {{Firma_Vergi_No}}, {{Firma_Telefon}}, {{Firma_Email}}
-  (Personel_*, Sözleşme_No vb. firma formunda yok -> yer tutucu kalir)
+  (Personel_*, Sozlesme_No vb. firma formunda yok -> yer tutucu kalir)
 
-Kullanim: .venv/Scripts/python.exe enjekte_firma.py
+Kullanim:
+  .venv/Scripts/python.exe enjekte_firma.py
 """
-import os, re
+import os, re, json
 from docx import Document
 from docx.oxml.ns import qn
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 HTML = os.path.join(BASE, "firma_bilgileri.html")
+JSON = os.path.join(BASE, "firma_bilgileri.json")
 
-def load_firma():
-    """HTML'deki input (value=) ve textarea iceriginden deger oku."""
+def load_html_firma():
+    """HTML'deki input (value=) ve textarea iceriginden deger oku (fallback)."""
+    if not os.path.exists(HTML):
+        return {}
     with open(HTML, encoding="utf-8") as f:
         src = f.read()
     data = {}
@@ -37,6 +47,26 @@ def load_firma():
         val = mv.group(1).strip() if mv else ""
         if fid not in data or not data[fid]:
             data[fid] = val
+    return data
+
+def load_json_firma():
+    """Formun 'JSON indir' ile urettigi firma_bilgileri.json dosyasini oku."""
+    if not os.path.exists(JSON):
+        return {}
+    try:
+        with open(JSON, encoding="utf-8") as f:
+            d = json.load(f)
+        if isinstance(d, dict):
+            return {k: (v.strip() if isinstance(v, str) else v) for k, v in d.items()}
+    except Exception as e:
+        print("UYARI: firma_bilgileri.json okunamadi:", e)
+    return {}
+
+def load_firma():
+    """JSON varsa oncelikli, yoksa HTML; ikisini birlestir (JSON override)."""
+    data = load_html_firma()
+    j = load_json_firma()
+    data.update(j)          # JSON, HTML degerlerini ezer
     return data
 
 def adres_birlesik(d):
@@ -92,12 +122,20 @@ def replace_in_doc(path, mp):
 
 def main():
     d = load_firma()
+    src = []
+    if os.path.exists(JSON): src.append("JSON")
+    src.append("HTML")
     mp = build_map(d)
     unvan = mp["{{Firma_Unvan}}"]
     print("Firma:", unvan or "(BOS)")
+    print("Veri kaynagi:", " + ".join(src))
     if not unvan:
-        print("UYARI: firma_bilgileri.html'de 'unvan' bos. Tarayicida forma deger girip kaydedin,")
-        print("        sonra bu scripti calistirin. (Yer tutucular oldugu gibi birakildi.)")
+        print("UYARI: 'unvan' bos.")
+        print("  1) firma_bilgileri.html'i tarayicida acin, 26 alani doldurun,")
+        print("  2) 'JSON indir' butonuyla firma_bilgileri.json uretin,")
+        print("  3) o dosyayi bu klasore (TELKOMISO27001/) kaydedin,")
+        print("  4) bu scripti tekrar calistirin.")
+        print("  (Yer tutucular oldugu gibi birakildi.)")
         return
     folders = [
         os.path.join(BASE, "DOKUMANLAR", "00-POLİTİKALAR"),
@@ -117,7 +155,7 @@ def main():
                 total += 1
                 print(f"  guncellendi: {f} ({n} yer tutucu)")
     print(f"\nTOPLAM: {total} dosya guncellendi.")
-    print("Not: Personel_*, Sözleşme_No gibi firma disi degiskenler yer tutucu kaldi (ayrica doldurulur).")
+    print("Not: Personel_*, Sozlesme_No gibi firma disi degiskenler yer tutucu kaldi (ayrica doldurulur).")
 
 if __name__ == "__main__":
     main()

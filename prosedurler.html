@@ -54,6 +54,14 @@
   .viewer .vhead h3{margin:0;flex:1;font-size:15px;}
   .viewer iframe{flex:1;border:none;width:100%;}
   .efoot{display:flex;gap:10px;padding:14px 20px;border-top:1px solid var(--line);background:#fafbfd}
+  /* firma panel formu */
+  .fbody{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 18px;padding:18px 16px;}
+  .fbody .ffield{display:flex;flex-direction:column;gap:5px;}
+  .fbody .ffield label{font-weight:600;font-size:12.5px;color:#374151;}
+  .fbody .ffield input{width:100%;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;font-size:13px;}
+  .fbody .ffield input:focus{outline:2px solid rgba(37,99,235,.25);border-color:var(--accent);}
+  .fbody .ffoot{grid-column:1/-1;border-top:1px dashed var(--line);padding-top:10px;}
+  .fbody .hint{font-size:12px;color:var(--muted);}
   /* gövde editör */
   .toolbar{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0 4px}
   .toolbar button{background:#fff;border:1px solid #d1d5db;border-radius:6px;padding:5px 9px;cursor:pointer;font-size:13px}
@@ -104,11 +112,40 @@
         <div class='sub'>BGYS prosedür belgelerinin hazırlık ve görüntüleme özeti (HTML önizleme).</div>
       </div>
       <div class='spacer'></div>
+      <button class='bell' onclick='firmaPanelToggle()'>&#128100; Firma Bilgileri</button>
       <button class='bell'>&#128276; Bildirimler</button>
       <button class='btn blue' onclick="alert('Yeni prosedur: uret_prosedurler.py ile olusturulur.')">+ Yeni Kayıt</button>
     </div>
 
     <div class='content'>
+      <!-- GÖMÜLÜ FİRMA BİLGİLERİ PANELİ (firma_bilgileri.html ile aynı company_* kaynağı) -->
+      <div class='card' id='firmaPanel' style='display:none;margin-bottom:18px'>
+        <div class='chead'>
+          <h3>&#128100; Firma Bilgileri (değişken kaynağı)</h3>
+          <span id='firmaDurum' class='status' style='background:#fef3c7;color:#92400e'>kaydedilmedi</span>
+          <div class='spacer'></div>
+          <button class='btn green' onclick='firmaKaydet()'>&#128427; Kaydet</button>
+          <button class='btn orange' onclick='firmaPanelToggle()'>&#10005; Kapat</button>
+        </div>
+        <div class='fbody'>
+          <div class='ffield'><label>Firma Unvanı *</label><input id='c_unvan' type='text' placeholder='Örn. Telkom Bilgi Teknolojileri A.Ş.'></div>
+          <div class='ffield'><label>Açık Adres *</label><input id='c_adres' type='text' placeholder='Mahalle, cadde, no, daire'></div>
+          <div class='ffield'><label>İl</label><input id='c_il' type='text' placeholder='İstanbul'></div>
+          <div class='ffield'><label>İlçe</label><input id='c_ilce' type='text' placeholder='Üsküdar'></div>
+          <div class='ffield'><label>Posta Kodu</label><input id='c_postaKodu' type='text' placeholder='34000'></div>
+          <div class='ffield'><label>Ülke</label><input id='c_ulke' type='text' value='Türkiye'></div>
+          <div class='ffield'><label>Sözleşme Başlangıç Tarihi (Tarih değişkeni)</label><input id='c_sozBas' type='date'></div>
+          <div class='ffield'><label>Kısa Ad / Marka</label><input id='c_kisaAd' type='text' placeholder='Telkom'></div>
+          <div class='ffield'><label>Web</label><input id='c_web' type='text' placeholder='https://'></div>
+          <div class='ffield'><label>E-posta</label><input id='c_email' type='email' placeholder='info@ornek.com'></div>
+          <div class='ffield'><label>Telefon</label><input id='c_telefon' type='text' placeholder='+90 000 000 00 00'></div>
+          <div class='ffield'><label>VKN</label><input id='c_vkn' type='text' placeholder='Vergi/TC No'></div>
+          <div class='ffield'><label>Yetkili Adı</label><input id='c_yetkiliAd' type='text'></div>
+          <div class='ffield'><label>Yetkili Ünvan</label><input id='c_yetkiliUnvan' type='text'></div>
+          <div class='ffoot'><span class='hint'>Buradan kaydedilen bilgiler <code>firma_bilgileri.html</code> ile aynı <code>company_*</code> localStorage kaynağıdır. Prosedürlerdeki <code>{{firma_unvan}}</code>, <code>{{FIRMA_ADRESI}}</code>, <code>{{TARIH}}</code> otomatik dolar.</span></div>
+        </div>
+      </div>
+
       <div class='card'>
         <div class='chead'>
           <h3>Tüm Prosedürler (<span id='say'>0</span>)</h3>
@@ -201,6 +238,42 @@ const PRE = [
   {kod:'BG.PRS.19', ad:'Yazılım Lisans Yönetim Prosedürü',    kapsam:'Yazılım',         rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/19_Yazilim_Lisans_Yonetim_Proseduru.html'},
   {kod:'BG.PRS.20', ad:'Log Yönetimi ve İzleme Prosedürü',    kapsam:'İzleme',          rev:'v1.0', html:'DOKUMANLAR/_onizleme/00-PROSEDURLER/20_Log_Yonetimi_ve_Izleme_Proseduru.html'},
 ];
+// ===== Firma değişkenleri (firma_bilgileri.html ile ORTAK company_* anahtarı) =====
+// Eski uyumluluk için var_* önekli anahtarları da destekler
+const VAR_KEYS_COMPAT = ['firma_unvan','firma_adresi','Firma_Unvan','Personel_Ad_Soyad','Sözleşme_Tarihi',
+  'İmza_Tarihi','PLATFORM_WEB_ADRESI','Sözleşme_No','Personel_TC','Firma_Adres',
+  'Yetkili_Mahkeme','Firma_Yetkili','Firma_Yetkili_Unvan','MUSTERI_HIZMETLERI_TEL',
+  'Firma1_Unvan','Firma2_Unvan','İş_Tanımı','Ödeme_Günü','Firma_Vergi_No','Firma_SSK_Sicil',
+  'Personel_SSK_No','Personel_Doğum_Yeri_Yılı','Personel_Telefon','Personel_Email',
+  'İşe_Başlama_Tarihi','Sözleşme_Süresi_Yıl','İş_Konusu','Deneme_Süresi_Gün','Net_Ücret',
+  'PLATFORM_UNVAN','DOKUMAN_KODU','FIRMA_ADRESI','FIRMA_EPOSTA','AKOTO_ADRESI','AKOTO_UNVANI','TURCOM_UNVANI'];
+function getCompanyVars(){
+  const keys=['unvan','adres','il','ilce','postaKodu','ulke','sozBas','kisaAd','yetkiliAd','yetkiliUnvan','web','email','telefon','vkn'];
+  const c={};
+  keys.forEach(k=>{ const v=localStorage.getItem('company_'+k); c[k]= v===null?'':v; });
+  const adresParts=[];
+  if(c.adres) adresParts.push(c.adres);
+  if(c.il) adresParts.push(c.il);
+  if(c.ilce) adresParts.push(c.ilce);
+  if(c.postaKodu) adresParts.push(c.postaKodu);
+  if(c.ulke) adresParts.push(c.ulke);
+  c.adresSatir = adresParts.join(', ');
+  return c;
+}
+function applyVars(txt){
+  if(!txt) return txt;
+  // eski var_* uyumluluk
+  VAR_KEYS_COMPAT.forEach(k=>{ const v=localStorage.getItem('var_'+k); if(v!==null) txt=txt.split('{{'+k+'}}').join(v); });
+  // firma_bilgileri.html kaynağı (company_*)  ->  {{firma_unvan}}, {{Firma_Unvan}}, {{FIRMA_UNVANI}} vb.
+  const c=getCompanyVars();
+  const map={
+    '{{firma_unvan}}':c.unvan, '{{Firma_Unvan}}':c.unvan, '{{FIRMA_UNVANI}}':c.unvan,
+    '{{firma_adresi}}':c.adresSatir, '{{Firma_Adres}}':c.adresSatir, '{{FIRMA_ADRESI}}':c.adresSatir,
+    '{{TARIH}}':c.sozBas
+  };
+  Object.keys(map).forEach(k=>{ if(map[k]) txt=txt.split(k).join(map[k]); });
+  return txt;
+}
 function guncel(){return '24.07.2026';}
 function render(list){
   const tb=document.getElementById('tbody'); tb.innerHTML='';
@@ -226,11 +299,21 @@ function goruntule(html,ad,kod){
   if(govde){
     document.getElementById('vtitle').textContent=ad+' — Önizleme (düzenlenmiş)';
     const doc=fr.contentDocument || fr.contentWindow.document;
-    doc.open(); doc.write('<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Segoe UI,Arial;padding:20px;color:#1f2937;line-height:1.6}</style></head><body>'+govde+'</body></html>'); doc.close();
+    doc.open(); doc.write('<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Segoe UI,Arial;padding:20px;color:#1f2937;line-height:1.6}</style></head><body>'+applyVars(govde)+'</body></html>'); doc.close();
     v.style.display='block';
   } else {
     document.getElementById('vtitle').textContent=ad+' — Önizleme';
-    fr.src=html; v.style.display='block';
+    // iframe ile açarken de değişkenleri uygula: belgeyi fetch edip yerine koy
+    (async()=>{
+      try{
+        const r=await fetch(html); const t=await r.text();
+        const m=t.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+        const body = m ? m[1] : t;
+        const doc=fr.contentDocument || fr.contentWindow.document;
+        doc.open(); doc.write('<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Segoe UI,Arial;padding:20px;color:#1f2937;line-height:1.6}</style></head><body>'+applyVars(body)+'</body></html>'); doc.close();
+      }catch(e){ fr.src=html; }
+    })();
+    v.style.display='block';
   }
 }
 function viewerKapat(){document.getElementById('viewer').style.display='none';document.getElementById('vframe').src='about:blank';}
@@ -243,11 +326,12 @@ function govdeKaynakToggle(){
   else { vis.innerHTML=src.value; src.style.display='none'; vis.style.display='block'; }
 }
 async function govdeYukle(kod,html){
-  try{ const s=localStorage.getItem('bgys_govde_'+kod); if(s){ document.getElementById('eGovde').innerHTML=JSON.parse(s).govde; return; } }catch(e){}
+  try{ const s=localStorage.getItem('bgys_govde_'+kod); if(s){ document.getElementById('eGovde').innerHTML=applyVars(JSON.parse(s).govde); return; } }catch(e){}
   try{
     const r=await fetch(html); const t=await r.text();
     const m=t.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-    document.getElementById('eGovde').innerHTML = m ? m[1] : t;
+    const body = m ? m[1] : t;
+    document.getElementById('eGovde').innerHTML = applyVars(body);
   }catch(e){ document.getElementById('eGovde').innerHTML='<p><i>Belge gövdesi yüklenemedi.</i></p>'; }
 }
 function duzenle(kod){
@@ -295,6 +379,35 @@ function csvKaydet(){let csv='KOD;BELGE ADİ;KAPSAM;REVİZYON;DURUM;GÜNCELLEME\
   const b=new Blob([csv],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='prosedur_listesi.csv';a.click();}
 render(PRE);
+// ===== GÖMÜLÜ FIRMA PANELİ =====
+const FIRMA_FIELDS=['unvan','adres','il','ilce','postaKodu','ulke','sozBas','kisaAd','web','email','telefon','vkn','yetkiliAd','yetkiliUnvan'];
+function firmaPanelToggle(){
+  const p=document.getElementById('firmaPanel');
+  if(p.style.display==='none'){ p.style.display='block'; firmaYukle(); }
+  else p.style.display='none';
+}
+function firmaYukle(){
+  FIRMA_FIELDS.forEach(k=>{
+    const el=document.getElementById('c_'+k); if(!el) return;
+    const v=localStorage.getItem('company_'+k);
+    el.value = v===null?'':v;
+  });
+  const unvan=localStorage.getItem('company_unvan');
+  document.getElementById('firmaDurum').textContent = unvan? 'kaydedildi ✓' : 'kaydedilmedi';
+  document.getElementById('firmaDurum').style.background = unvan? '#dcfce7':'#fef3c7';
+  document.getElementById('firmaDurum').style.color = unvan? '#166534':'#92400e';
+}
+function firmaKaydet(){
+  FIRMA_FIELDS.forEach(k=>{
+    const el=document.getElementById('c_'+k); if(!el) return;
+    const v=el.value.trim();
+    if(v==='') localStorage.removeItem('company_'+k);
+    else localStorage.setItem('company_'+k, v);
+  });
+  firmaYukle();
+  alert('Firma bilgileri kaydedildi.\nProsedürleri açıp "Görüntüle" dedikçe {{firma_unvan}}, {{FIRMA_ADRESI}}, {{TARIH}} dolacak.');
+}
+firmaYukle();
 </script>
 </body>
 </html>
